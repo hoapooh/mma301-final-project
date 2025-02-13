@@ -49,7 +49,11 @@ export default function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
       <GluestackUIProvider mode="light">
-        <Stack />
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="index" />
+          <Stack.Screen name="(auth)" />
+          <Stack.Screen name="(root)" />
+        </Stack>
       </GluestackUIProvider>
     </QueryClientProvider>
   );
