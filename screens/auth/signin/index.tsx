@@ -114,8 +114,7 @@ const LoginWithLeftBackground = () => {
   return (
     <VStack className="max-w-[440px] w-full" space="md">
       {/* === HEADER === */}
-      <VStack className="md:items-center" space="md">
-        <Pressable
+      {/* <Pressable
           onPress={() => {
             router.back();
           }}
@@ -125,13 +124,15 @@ const LoginWithLeftBackground = () => {
             className="md:hidden text-background-800"
             size="xl"
           />
-        </Pressable>
-        <VStack>
-          <Heading className="md:text-center" size="3xl">
-            Log in
-          </Heading>
-          <Text>Login to start using gluestack</Text>
-        </VStack>
+        </Pressable> */}
+      <VStack className="items-center" space="xs">
+        <Heading size="3xl">Log in</Heading>
+        <Text>
+          Welcome to{' '}
+          <Text bold size="lg">
+            CapyCloset
+          </Text>
+        </Text>
       </VStack>
 
       {/* === BODY === */}
@@ -218,7 +219,7 @@ const LoginWithLeftBackground = () => {
                     onSubmitEditing={handleKeyPress}
                     returnKeyType="done"
                   />
-                  <InputSlot onPress={handleState} className="pr-3">
+                  <InputSlot onPress={handleState} style={{ paddingRight: 10 }}>
                     <InputIcon as={showPassword ? EyeIcon : EyeOffIcon} />
                   </InputSlot>
                 </Input>

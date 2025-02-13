@@ -15,11 +15,9 @@ export const AuthLayout = (props: AuthLayoutProps) => {
         className="w-full h-full"
         contentContainerStyle={{ flexGrow: 1 }}
       >
-        <HStack className="w-full h-full bg-background-0 flex-grow justify-center">
-          <VStack className="md:items-center md:justify-center flex-1 w-full p-9 md:gap-10 gap-16 md:m-auto md:w-1/2 h-full">
-            {props.children}
-          </VStack>
-        </HStack>
+        <VStack className="bg-background-0 w-full h-full justify-center p-6">
+          {props.children}
+        </VStack>
       </ScrollView>
     </SafeAreaView>
   );
