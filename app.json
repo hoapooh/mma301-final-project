@@ -36,6 +36,18 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "proxy": {
+        "/api": {
+          "target": "https://store-admin.pnviethung.dev",
+          "changeOrigin": true,
+          "secure": false,
+          "headers": {
+            "Connection": "keep-alive"
+          }
+        }
+      }
     }
   }
 }
