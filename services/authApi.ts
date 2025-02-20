@@ -25,6 +25,7 @@ export const authApi = {
       if (response.data.token) {
         await axiosInstance.post('/auth/session', null, {
           headers: {
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${response.data.token}`,
           },
           // withCredentials: true,
