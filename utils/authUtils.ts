@@ -29,7 +29,8 @@ export const setTokenToLocalStorage = async (token: string): Promise<void> => {
   }
 };
 
-export const getUserInfoFromLocalStorage = async () => {
+// NOTE: Uncomment the following code if you need to store user info
+/* export const getUserInfoFromLocalStorage = async () => {
   try {
     const userInfo = await AsyncStorage.getItem(USER_INFO_KEY);
     return userInfo ? JSON.parse(userInfo) : null;
@@ -51,4 +52,4 @@ export const setUserInfoToLocalStorage = async (
     console.error('Error setting user info:', error);
     throw error; // Propagate error for handling
   }
-};
+}; */

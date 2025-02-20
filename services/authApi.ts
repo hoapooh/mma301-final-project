@@ -9,30 +9,15 @@ import axios from 'axios';
 export const authApi = {
   login: async (credentials: IUserLogin): Promise<IUserResponse> => {
     try {
-      const response = await axiosInstance.post(
+      const responseTokenData = await axiosInstance.post(
         '/auth/customer/emailpass',
-        credentials
-        // {
-        //   headers: {
-        //     'Access-Control-Allow-Origin': '*',
-        //     'Access-Control-Allow-Methods': 'POST',
-        //     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-        //   },
-        // }
+        {
+          email: credentials.email,
+          password: credentials.password,
+        }
       );
 
-      // Create session
-      if (response.data.token) {
-        await axiosInstance.post('/auth/session', null, {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${response.data.token}`,
-          },
-          // withCredentials: true,
-        });
-      }
-
-      return response.data;
+      return responseTokenData.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.response?.status === 403) {

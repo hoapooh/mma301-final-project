@@ -4,9 +4,9 @@ import { authApi } from '@/services/authApi';
 import {
   clearAuthLocalStorage,
   getTokenFromLocalStorage,
-  getUserInfoFromLocalStorage,
   setTokenToLocalStorage,
-  setUserInfoToLocalStorage,
+  // getUserInfoFromLocalStorage,
+  // setUserInfoToLocalStorage,
 } from '@/utils/authUtils';
 
 export interface AuthSlice {
@@ -20,7 +20,9 @@ export interface AuthSlice {
   setAuth: (data: IUserResponse) => Promise<void>;
   login: (credentials: IUserLogin) => Promise<void>;
   logout: () => Promise<void>;
-  initializeAuth: () => Promise<void>;
+
+  // TODO: Uncomment the following code if you need to initialize auth
+  // initializeAuth: () => Promise<void>;
 }
 
 export const createAuthSlice: SliceInterface<AuthSlice> = (set, get) => ({
@@ -35,9 +37,9 @@ export const createAuthSlice: SliceInterface<AuthSlice> = (set, get) => ({
 
   setAuth: async (data) => {
     await setTokenToLocalStorage(data.token);
-    await setUserInfoToLocalStorage(data.user);
+    // await setUserInfoToLocalStorage(data.user);
     set({
-      user: data.user,
+      // user: data.user,
       token: data.token,
       isAuthenticated: true,
       error: null,
@@ -76,7 +78,8 @@ export const createAuthSlice: SliceInterface<AuthSlice> = (set, get) => ({
     }
   },
 
-  initializeAuth: async () => {
+  // TODO: Uncomment the following code if you need to initialize auth
+  /* initializeAuth: async () => {
     set({ isLoading: true });
     try {
       const token = await getTokenFromLocalStorage();
@@ -92,5 +95,5 @@ export const createAuthSlice: SliceInterface<AuthSlice> = (set, get) => ({
     } finally {
       set({ isLoading: false });
     }
-  },
+  }, */
 });

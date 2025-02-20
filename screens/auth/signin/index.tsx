@@ -43,7 +43,7 @@ import { IUserLogin } from '@/interfaces/user-interface';
 
 const loginSchema = z.object({
   email: z.string().min(1, 'Email is required').email(),
-  password: z.string().min(1, 'Password is required'),
+  password: z.string(),
   rememberme: z.boolean().optional(),
 });
 
@@ -85,6 +85,7 @@ const LoginWithLeftBackground = () => {
 
         toast.show({
           placement: 'bottom right',
+          duration: 2000,
           render: ({ id }) => (
             <Toast nativeID={id} variant="solid" action="success">
               <ToastTitle>Logged in successfully!</ToastTitle>
@@ -96,6 +97,9 @@ const LoginWithLeftBackground = () => {
         router.replace('/(root)/(tabs)/products');
       } catch (error: any) {
         setValidated({ emailValid: false, passwordValid: false });
+
+        console.log(error);
+
         toast.show({
           placement: 'bottom right',
           render: ({ id }) => (
