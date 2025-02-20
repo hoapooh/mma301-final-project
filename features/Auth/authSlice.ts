@@ -1,81 +1,52 @@
-import { SliceInterface } from '@/configs/store';
-import { IUser, IUserLogin, IUserResponse } from '@/interfaces/user-interface';
+import { create } from 'zustand';
 import { authApi } from '@/services/authApi';
+import { IUserLogin, IUserResponse } from '@/interfaces/user-interface';
 import {
   clearAuthLocalStorage,
   getTokenFromLocalStorage,
-  getUserInfoFromLocalStorage,
   setTokenToLocalStorage,
-  setUserInfoToLocalStorage,
 } from '@/utils/authUtils';
 
-export interface AuthSlice {
-  user: IUser | null;
+interface AuthState {
   token: string | null;
   isAuthenticated: boolean;
   isLoading: boolean;
   error: string | null;
-  setUser: (user: IUser | null) => void;
-  setToken: (token: string | null) => void;
-  setAuth: (data: IUserResponse) => Promise<void>;
   login: (credentials: IUserLogin) => Promise<void>;
   logout: () => Promise<void>;
   initializeAuth: () => Promise<void>;
 }
 
-export const createAuthSlice: SliceInterface<AuthSlice> = (set, get) => ({
-  user: null,
+const useAuthSlice = create<AuthState>((set, get) => ({
   token: null,
   isAuthenticated: false,
   isLoading: false,
   error: null,
-
-  setUser: (user) => set({ user }),
-  setToken: (token) => set({ token }),
-
-  setAuth: async (data) => {
-    await setTokenToLocalStorage(data.token);
-    await setUserInfoToLocalStorage(data.user);
-    set({
-      user: data.user,
-      token: data.token,
-      isAuthenticated: true,
-      error: null,
-    });
-  },
-
   login: async (credentials) => {
     set({ isLoading: true, error: null });
     try {
       const data = await authApi.login(credentials);
-      await get().setAuth(data);
+      await setTokenToLocalStorage(data.token);
+      set({ token: data.token, isAuthenticated: true });
     } catch (error: any) {
-      const message = error.message || 'Login failed';
-      set({ error: message });
-      throw new Error(message);
+      set({ error: error.message || 'Login failed' });
+      throw new Error(error.message || 'Login failed');
     } finally {
       set({ isLoading: false });
     }
   },
-
   logout: async () => {
     set({ isLoading: true, error: null });
     try {
       await authApi.logout();
       await clearAuthLocalStorage();
-      set({
-        user: null,
-        token: null,
-        isAuthenticated: false,
-        error: null,
-      });
+      set({ token: null, isAuthenticated: false });
     } catch (error: any) {
       set({ error: error.message || 'Logout failed' });
     } finally {
       set({ isLoading: false });
     }
   },
-
   initializeAuth: async () => {
     set({ isLoading: true });
     try {
@@ -83,14 +54,13 @@ export const createAuthSlice: SliceInterface<AuthSlice> = (set, get) => ({
       if (!token) {
         throw new Error('No token found');
       }
-
-      const currentUser = await authApi.getCurrentUser();
-      await get().setAuth(currentUser);
-    } catch (error) {
-      // Clear auth on any error
-      await get().logout();
+      set({ token, isAuthenticated: true });
+    } catch (error: any) {
+      set({ error: error.message || 'Failed to initialize auth' });
     } finally {
       set({ isLoading: false });
     }
   },
-});
+}));
+
+export default useAuthSlice;

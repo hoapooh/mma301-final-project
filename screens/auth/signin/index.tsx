@@ -40,6 +40,7 @@ import { AuthLayout } from '../layout';
 import { router } from 'expo-router';
 import useAppStore from '@/configs/store';
 import { IUserLogin } from '@/interfaces/user-interface';
+import useAuthSlice from '@/features/Auth/authSlice';
 
 const loginSchema = z.object({
   email: z.string().min(1, 'Email is required').email(),
@@ -69,9 +70,8 @@ const LoginWithLeftBackground = () => {
     emailValid: true,
     passwordValid: true,
   });
-
-  const login = useAppStore(useCallback((state) => state.login, []));
-  const isLoading = useAppStore(useCallback((state) => state.isLoading, []));
+  const login = useAuthSlice(useCallback((state) => state.login, []));
+  const isLoading = useAuthSlice(useCallback((state) => state.isLoading, []));
 
   const onSubmit = useCallback(
     async (data: LoginSchemaType) => {
@@ -101,7 +101,7 @@ const LoginWithLeftBackground = () => {
           render: ({ id }) => (
             <Toast nativeID={id} variant="solid" action="error">
               <ToastTitle>
-                {error?.message || 'Login failed. Please try again.'}
+                {error.message || 'Login failed. Please try again.'}
               </ToastTitle>
             </Toast>
           ),

@@ -4,8 +4,8 @@ export interface IUser {
   password?: string;
   firstName?: string;
   lastName?: string;
-  // createdAt?: Date;
-  // updatedAt?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface IUserLogin {
@@ -22,7 +22,6 @@ export interface IUserRegister {
 }
 
 export interface IUserResponse {
-  user: Omit<IUser, 'password'>;
   token: string;
   // refreshToken?: string;
 }

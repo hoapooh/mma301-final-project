@@ -12,25 +12,7 @@ export const authApi = {
       const response = await axiosInstance.post(
         '/auth/customer/emailpass',
         credentials
-        // {
-        //   headers: {
-        //     'Access-Control-Allow-Origin': '*',
-        //     'Access-Control-Allow-Methods': 'POST',
-        //     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-        //   },
-        // }
       );
-
-      // Create session
-      if (response.data.token) {
-        await axiosInstance.post('/auth/session', null, {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${response.data.token}`,
-          },
-          // withCredentials: true,
-        });
-      }
 
       return response.data;
     } catch (error) {

@@ -10,7 +10,6 @@ const API_KEY = process.env.EXPO_PUBLIC_API_KEY;
 
 const axiosInstance = axios.create({
   baseURL: API_URL,
-  timeout: 30000,
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
