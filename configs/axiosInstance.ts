@@ -24,6 +24,10 @@ axiosInstance.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+    if (!config.headers.Accept && config.headers['Content-Type']) {
+      config.headers.Accept = 'application/json';
+      config.headers['Content-Type'] = 'application/json; charset=utf-8';
+    }
     return config;
   },
   (error) => {

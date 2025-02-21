@@ -84,7 +84,10 @@ const LoginWithLeftBackground = () => {
         await login(loginData);
 
         toast.show({
-          placement: 'bottom right',
+          placement: 'bottom',
+          containerStyle: {
+            marginBottom: 60,
+          },
           render: ({ id }) => (
             <Toast nativeID={id} variant="solid" action="success">
               <ToastTitle>Logged in successfully!</ToastTitle>
