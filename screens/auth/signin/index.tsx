@@ -1,11 +1,4 @@
-import React, { useCallback, useState } from 'react';
-import { Toast, ToastTitle, useToast } from '@/components/ui/toast';
-import { HStack } from '@/components/ui/hstack';
-import { VStack } from '@/components/ui/vstack';
-import { Heading } from '@/components/ui/heading';
-import { Text } from '@/components/ui/text';
-import { LinkText } from '@/components/ui/link';
-import { Link } from '@/components/ui/link';
+import { Button, ButtonText } from '@/components/ui/button';
 import {
   FormControl,
   FormControlError,
@@ -14,33 +7,24 @@ import {
   FormControlLabel,
   FormControlLabelText,
 } from '@/components/ui/form-control';
+import { Heading } from '@/components/ui/heading';
+import { HStack } from '@/components/ui/hstack';
+import { EyeIcon, EyeOffIcon } from '@/components/ui/icon';
 import { Input, InputField, InputIcon, InputSlot } from '@/components/ui/input';
-import {
-  Checkbox,
-  CheckboxIcon,
-  CheckboxIndicator,
-  CheckboxLabel,
-} from '@/components/ui/checkbox';
-import {
-  ArrowLeftIcon,
-  CheckIcon,
-  EyeIcon,
-  EyeOffIcon,
-  Icon,
-} from '@/components/ui/icon';
-import { Button, ButtonText, ButtonIcon } from '@/components/ui/button';
-import { Keyboard } from 'react-native';
-import { useForm, Controller } from 'react-hook-form';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import Feather from '@expo/vector-icons/Feather';
-import { GoogleIcon } from './assets/icon/google';
-import { Pressable } from '@/components/ui/pressable';
-import { AuthLayout } from '../layout';
-import { router } from 'expo-router';
-import useAppStore from '@/configs/store';
-import { IUserLogin } from '@/interfaces/user-interface';
+import { Link, LinkText } from '@/components/ui/link';
+import { Text } from '@/components/ui/text';
+import { Toast, ToastTitle, useToast } from '@/components/ui/toast';
+import { VStack } from '@/components/ui/vstack';
 import useAuthSlice from '@/features/Auth/authSlice';
+import { IUserLogin } from '@/interfaces/user-interface';
+import Feather from '@expo/vector-icons/Feather';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { router } from 'expo-router';
+import React, { useCallback, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { Keyboard } from 'react-native';
+import { z } from 'zod';
+import { AuthLayout } from '../layout';
 
 const loginSchema = z.object({
   email: z.string().min(1, 'Email is required').email(),

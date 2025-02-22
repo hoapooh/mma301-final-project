@@ -12,6 +12,7 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query';
 import { GluestackUIProvider } from '@/components/ui/gluestack-ui-provider';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 // Create a client
 const queryClient = new QueryClient({
@@ -49,11 +50,22 @@ export default function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
       <GluestackUIProvider mode="light">
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="index" />
-          <Stack.Screen name="(auth)" />
-          <Stack.Screen name="(root)" />
-        </Stack>
+        <SafeAreaView style={{ flex: 1 }}>
+          <Stack
+            screenOptions={{
+              headerShown: true,
+            }}
+          >
+            <Stack.Screen name="index" />
+            <Stack.Screen
+              name="(auth)"
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen name="(root)" />
+          </Stack>
+        </SafeAreaView>
       </GluestackUIProvider>
     </QueryClientProvider>
   );
