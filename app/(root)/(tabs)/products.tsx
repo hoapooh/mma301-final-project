@@ -2,7 +2,6 @@ import { View, Text, FlatList } from 'react-native';
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { productApi } from '@/services/productApi';
-import { SafeAreaView } from 'react-native-safe-area-context';
 const Products = () => {
   const query = useQuery({
     queryKey: ['productList'],
@@ -17,6 +16,8 @@ const Products = () => {
       </View>
     );
   }
+
+  console.log(query.data.products);
 
   return (
     <View>
