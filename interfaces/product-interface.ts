@@ -3,9 +3,9 @@ export interface ProductImage {
   url: string;
 }
 export interface Variant {
-  calculated_price:{
-    original_price: string
-  }
+  calculated_price: {
+    original_amount: number;
+  };
 }
 export interface IProduct {
   title: string;
@@ -15,5 +15,5 @@ export interface IProduct {
   collection_id: string;
   type_id: string;
   subtitle: string;
+  variants: Variant[];
 }
-

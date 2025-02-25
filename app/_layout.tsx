@@ -56,7 +56,12 @@ export default function RootLayout() {
               headerShown: true,
             }}
           >
-            <Stack.Screen name="index" />
+            <Stack.Screen
+              name="index"
+              options={{
+                headerShown: false,
+              }}
+            />
             <Stack.Screen
               name="(auth)"
               options={{

@@ -1,8 +1,8 @@
-import { AuthSlice, createAuthSlice } from '@/features/Auth/authSlice';
+import { createSettingSlice, SettingSlice } from '@/features/settingSlice';
 import { create, StateCreator } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
-type AppStore = AuthSlice;
+type AppStore = SettingSlice;
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface SliceInterface<T>
@@ -10,7 +10,7 @@ export interface SliceInterface<T>
 
 const useAppStore = create<AppStore>()(
   devtools((...a) => ({
-    ...createAuthSlice(...a),
+    ...createSettingSlice(...a),
   }))
 );
 export default useAppStore;

@@ -1,13 +1,12 @@
-import { View, Text, FlatList } from 'react-native';
+import ProductList from '@/screens/products/components/ProductList';
+import useProductList from '@/screens/products/hooks/useProductList';
 import React from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { productApi } from '@/services/productApi';
-import ProductListItem from '@/screens/products/components/ProductListItem';
+import { Text, View } from 'react-native';
 const Products = () => {
-  const query = useQuery({
-    queryKey: ['productList'],
-    queryFn: productApi.getProducts,
-    select: (res) => res.data,
+  const query = useProductList({
+    apiParams: {
+      fields: '*variants.calculated_price,+variants.inventory_quantity',
+    },
   });
 
   if (query.isLoading) {
@@ -18,21 +17,9 @@ const Products = () => {
     );
   }
 
-  console.log(query.data.products);
-
   return (
     <View>
-      <FlatList
-        data={query.data.products}
-        numColumns={2}
-        contentContainerClassName='gap-2'
-        columnWrapperClassName='gap-2'
-        renderItem={({ item }) => {
-          return (
-            <ProductListItem product = {item}/>
-          );
-        }}
-      />
+      <ProductList data={query.data?.products} />
     </View>
   );
 };
