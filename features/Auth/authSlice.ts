@@ -1,4 +1,4 @@
-import { create } from 'zustand';
+import { IUserLogin } from '@/interfaces/user-interface';
 import { authApi } from '@/services/authApi';
 import { IUserLogin, IUserRegister } from '@/interfaces/user-interface';
 import {
@@ -6,6 +6,7 @@ import {
   getTokenFromLocalStorage,
   setTokenToLocalStorage,
 } from '@/utils/authUtils';
+import { create } from 'zustand';
 
 interface AuthState {
   token: string | null;
