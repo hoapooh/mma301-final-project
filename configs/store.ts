@@ -1,4 +1,4 @@
-import { AuthSlice, createAuthSlice } from '@/features/Auth/authSlice';
+/* import { AuthSlice, createAuthSlice } from '@/features/Auth/authSlice';
 import { create, StateCreator } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
@@ -14,3 +14,4 @@ const useAppStore = create<AppStore>()(
   }))
 );
 export default useAppStore;
+ */
