@@ -26,12 +26,43 @@ export const authApi = {
     }
   },
 
-  register: async (data: IUserRegister): Promise<IUserResponse> => {
-    const response = await axiosInstance.post(
-      '/auth/customer/emailpass/register',
-      data
-    );
-    return response.data;
+  signup: async (data: IUserRegister): Promise<IUserResponse> => {
+    try {
+      // 1. Obtain JWT token
+      const registerResponse = await axiosInstance.post(
+        '/auth/customer/emailpass/register',
+        {
+          email: data.email,
+          password: data.password,
+        }
+      );
+
+      // 2. Extract token from response
+      const token = registerResponse.data.token as string;
+
+      // 3. Create new user
+      const customerResponse = await axiosInstance.post(
+        '/store/customers',
+        {
+          email: data.email,
+          first_name: data.firstName,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      return customerResponse.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(error.response?.data?.message || 'Registration failed');
+      }
+      console.log(error);
+
+      throw error;
+    }
   },
 
   logout: async (): Promise<void> => {

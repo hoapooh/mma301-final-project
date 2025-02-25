@@ -1,5 +1,6 @@
 import { IUserLogin } from '@/interfaces/user-interface';
 import { authApi } from '@/services/authApi';
+import { IUserLogin, IUserRegister } from '@/interfaces/user-interface';
 import {
   clearAuthLocalStorage,
   getTokenFromLocalStorage,
@@ -12,6 +13,7 @@ interface AuthState {
   isAuthenticated: boolean;
   isLoading: boolean;
   error: string | null;
+  signup: (credentials: IUserRegister) => Promise<void>;
   login: (credentials: IUserLogin) => Promise<void>;
   logout: () => Promise<void>;
   initializeAuth: () => Promise<void>;
@@ -22,6 +24,18 @@ const useAuthSlice = create<AuthState>((set, get) => ({
   isAuthenticated: false,
   isLoading: false,
   error: null,
+  signup: async (credentials) => {
+    set({ isLoading: true, error: null });
+    try {
+      await authApi.signup(credentials);
+      set({ isAuthenticated: true });
+    } catch (error: any) {
+      set({ error: error.message || 'Signup failed' });
+      throw new Error(error.message || 'Signup failed');
+    } finally {
+      set({ isLoading: false });
+    }
+  },
   login: async (credentials) => {
     set({ isLoading: true, error: null });
     try {
