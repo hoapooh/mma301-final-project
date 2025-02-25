@@ -12,7 +12,6 @@ const axiosInstance = axios.create({
   baseURL: API_URL,
   withCredentials: true,
   headers: {
-    'Content-Type': 'application/json',
     'x-publishable-api-key': API_KEY,
   },
 });

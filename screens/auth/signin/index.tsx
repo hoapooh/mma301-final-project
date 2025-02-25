@@ -5,7 +5,6 @@ import { VStack } from '@/components/ui/vstack';
 import { Heading } from '@/components/ui/heading';
 import { Text } from '@/components/ui/text';
 import { LinkText } from '@/components/ui/link';
-import { Link } from '@/components/ui/link';
 import {
   FormControl,
   FormControlError,
@@ -15,30 +14,15 @@ import {
   FormControlLabelText,
 } from '@/components/ui/form-control';
 import { Input, InputField, InputIcon, InputSlot } from '@/components/ui/input';
-import {
-  Checkbox,
-  CheckboxIcon,
-  CheckboxIndicator,
-  CheckboxLabel,
-} from '@/components/ui/checkbox';
-import {
-  ArrowLeftIcon,
-  CheckIcon,
-  EyeIcon,
-  EyeOffIcon,
-  Icon,
-} from '@/components/ui/icon';
+import { EyeIcon, EyeOffIcon } from '@/components/ui/icon';
 import { Button, ButtonText, ButtonIcon } from '@/components/ui/button';
 import { Keyboard } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Feather from '@expo/vector-icons/Feather';
-import { GoogleIcon } from './assets/icon/google';
-import { Pressable } from '@/components/ui/pressable';
 import { AuthLayout } from '../layout';
-import { router } from 'expo-router';
-import useAppStore from '@/configs/store';
+import { Link, router } from 'expo-router';
 import { IUserLogin } from '@/interfaces/user-interface';
 import useAuthSlice from '@/features/Auth/authSlice';
 
@@ -252,7 +236,7 @@ const LoginWithLeftBackground = () => {
 
         <HStack className="self-center" space="sm">
           <Text size="md">Don't have an account?</Text>
-          <Link href="/auth/signup">
+          <Link href="/(auth)/sign-up">
             <LinkText
               className="font-medium text-primary-700 group-hover/link:text-primary-600  group-hover/pressed:text-primary-700"
               size="md"
