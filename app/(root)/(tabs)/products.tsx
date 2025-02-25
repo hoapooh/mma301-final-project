@@ -2,6 +2,7 @@ import { View, Text, FlatList } from 'react-native';
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { productApi } from '@/services/productApi';
+import ProductListItem from '@/screens/products/components/ProductListItem';
 const Products = () => {
   const query = useQuery({
     queryKey: ['productList'],
@@ -21,14 +22,14 @@ const Products = () => {
 
   return (
     <View>
-      <Text>Products</Text>
       <FlatList
         data={query.data.products}
+        numColumns={2}
+        contentContainerClassName='gap-2'
+        columnWrapperClassName='gap-2'
         renderItem={({ item }) => {
           return (
-            <View>
-              <Text>{item.title}</Text>
-            </View>
+            <ProductListItem product = {item}/>
           );
         }}
       />

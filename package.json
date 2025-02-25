@@ -69,6 +69,7 @@
     "expo-system-ui": "~4.0.8",
     "expo-web-browser": "~14.0.2",
     "i": "^0.3.7",
+    "mma301-project": "file:",
     "nativewind": "^4.1.23",
     "npm": "^10.9.2",
     "prettier": "^3.4.2",
