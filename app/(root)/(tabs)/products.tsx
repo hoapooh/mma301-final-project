@@ -18,7 +18,7 @@ const Products = () => {
   }
 
   return (
-    <View>
+    <View className="h-full bg-white">
       <ProductList data={query.data?.products} />
     </View>
   );

@@ -7,8 +7,10 @@ const TabsLayout = () => {
     <Tabs
       screenOptions={{
         headerShown: false,
+
         tabBarStyle: {
-          backgroundColor: '#282828',
+          backgroundColor: '#111',
+          height: 60,
         },
         tabBarActiveTintColor: '#fff',
         tabBarInactiveTintColor: '#d3d3d3',
@@ -17,9 +19,9 @@ const TabsLayout = () => {
       <Tabs.Screen
         name="products"
         options={{
-          title: 'Products',
+          title: 'Home',
           tabBarIcon: ({ color }) => (
-            <FontAwesome6 name="computer" size={24} color={color} />
+            <Ionicons name="home-outline" size={26} color={color} />
           ),
         }}
       />
@@ -28,7 +30,7 @@ const TabsLayout = () => {
         options={{
           title: 'Search',
           tabBarIcon: ({ color }) => (
-            <Feather name="search" size={24} color={color} />
+            <Ionicons name="search" size={26} color={color} />
           ),
         }}
       />
@@ -37,7 +39,7 @@ const TabsLayout = () => {
         options={{
           title: 'Bag',
           tabBarIcon: ({ color }) => (
-            <Ionicons name="bag-outline" size={24} color={color} />
+            <Ionicons name="bag-outline" size={26} color={color} />
           ),
         }}
       />

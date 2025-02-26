@@ -8,6 +8,7 @@ export interface Variant {
   };
 }
 export interface IProduct {
+  id: string;
   title: string;
   status: string;
   thumbnail: string;

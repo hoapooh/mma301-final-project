@@ -1,10 +1,16 @@
 import React from 'react';
 import { Stack } from 'expo-router';
+import MainHeader from '@/components/header/MainHeader';
 
 const RootLayout = () => {
   return (
-    <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="(tabs)" />
+    <Stack>
+      <Stack.Screen
+        name="(tabs)"
+        options={{
+          header: () => <MainHeader />,
+        }}
+      />
     </Stack>
   );
 };
