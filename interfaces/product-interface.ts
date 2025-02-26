@@ -13,7 +13,7 @@ export interface IProduct {
   title: string;
   status: string;
   thumbnail: string;
-  images: ProductImage;
+  images: ProductImage[];
   collection_id: string;
   type_id: string;
   subtitle: string;

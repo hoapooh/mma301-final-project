@@ -1,3 +1,4 @@
+import ProductImagesCarousel from '@/screens/products/components/ProductDetail/ProductImagesCarousel';
 import useProduct from '@/screens/products/hooks/useProduct';
 import { useLocalSearchParams } from 'expo-router';
 import React from 'react';
@@ -13,7 +14,7 @@ const ProductDetail = () => {
   }
   return (
     <View>
-      <Text>{query.data?.title}</Text>
+      <ProductImagesCarousel data={query.data?.images} />
     </View>
   );
 };

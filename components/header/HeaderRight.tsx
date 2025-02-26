@@ -5,9 +5,9 @@ import { View } from 'react-native';
 const HeaderRight = () => {
   return (
     <View>
-      <HStack space="sm" className="w-full items-center h-[70px] p-2 bg-white">
+      <HStack space="sm" className="w-full items-center  ">
         <Ionicons name="search" size={24} color="black" />
-        <Ionicons name="cart-outline" size={30} color="black" />
+        <Ionicons name="cart-outline" size={24} color="black" />
       </HStack>
     </View>
   );

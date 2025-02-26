@@ -1,4 +1,4 @@
-import HeaderRight from '@/components/header/MainHeader';
+import HeaderRight from '@/components/header/HeaderRight';
 import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 import React from 'react';
@@ -10,7 +10,7 @@ const TabsLayout = () => {
         headerShown: false,
         tabBarStyle: {
           backgroundColor: '#111',
-          height: 60,
+          height: 75,
         },
         tabBarActiveTintColor: '#fff',
         tabBarInactiveTintColor: '#d3d3d3',
