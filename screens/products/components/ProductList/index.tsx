@@ -14,7 +14,7 @@ const ProductListItem: React.FC<{ product: IProduct }> = ({ product }) => {
     <Card className=" rounded-lg max-w-[360px] flex-1 border-red-100">
       <Link
         href={{
-          pathname: `/products/[id]`,
+          pathname: `/product/[id]`,
           params: {
             id: product.id,
           },

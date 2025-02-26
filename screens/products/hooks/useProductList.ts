@@ -1,9 +1,9 @@
 import useAppStore from '@/configs/store';
-import { GetProductListAPIParams, productApi } from '@/services/productApi';
+import { ProductApiParams, productApi } from '@/services/productApi';
 import { useQuery } from '@tanstack/react-query';
 
 interface Props {
-  apiParams: GetProductListAPIParams;
+  apiParams: ProductApiParams;
 }
 
 const useProductList = (params: Props) => {

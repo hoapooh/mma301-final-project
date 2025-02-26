@@ -1,13 +1,13 @@
-import React from 'react';
+import HeaderRight from '@/components/header/MainHeader';
+import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
-import { FontAwesome6, Feather, Ionicons } from '@expo/vector-icons';
+import React from 'react';
 
 const TabsLayout = () => {
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-
         tabBarStyle: {
           backgroundColor: '#111',
           height: 60,
@@ -20,6 +20,8 @@ const TabsLayout = () => {
         name="products"
         options={{
           title: 'Home',
+          headerShown: true,
+          headerRight: () => <HeaderRight />,
           tabBarIcon: ({ color }) => (
             <Ionicons name="home-outline" size={26} color={color} />
           ),

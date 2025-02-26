@@ -1,6 +1,7 @@
 export interface ProductImage {
   id: string;
   url: string;
+  rank: number;
 }
 export interface Variant {
   calculated_price: {
