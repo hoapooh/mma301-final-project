@@ -1,4 +1,3 @@
-import { IUserLogin } from '@/interfaces/user-interface';
 import { authApi } from '@/services/authApi';
 import { IUserLogin, IUserRegister } from '@/interfaces/user-interface';
 import {

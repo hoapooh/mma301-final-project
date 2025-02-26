@@ -1,18 +1,18 @@
 import '@/global.css';
 
-import { useEffect } from 'react';
-import { Stack } from 'expo-router';
-import * as Network from 'expo-network';
-import { AppState, Platform } from 'react-native';
-import type { AppStateStatus } from 'react-native';
-import { focusManager } from '@tanstack/react-query';
+import { GluestackUIProvider } from '@/components/ui/gluestack-ui-provider';
 import {
+  focusManager,
   onlineManager,
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query';
-import { GluestackUIProvider } from '@/components/ui/gluestack-ui-provider';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import * as Network from 'expo-network';
+import { Stack } from 'expo-router';
+import { useEffect } from 'react';
+import type { AppStateStatus } from 'react-native';
+import { AppState, Platform } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 // Create a client
 const queryClient = new QueryClient({
@@ -50,27 +50,15 @@ export default function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
       <GluestackUIProvider mode="light">
-        <SafeAreaView style={{ flex: 1 }}>
-          <Stack
-            screenOptions={{
-              headerShown: true,
-            }}
-          >
-            <Stack.Screen
-              name="index"
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="(auth)"
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen name="(root)" />
-          </Stack>
-        </SafeAreaView>
+        <Stack
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          <Stack.Screen name="index" />
+          <Stack.Screen name="(auth)" />
+          <Stack.Screen name="(root)" />
+        </Stack>
       </GluestackUIProvider>
     </QueryClientProvider>
   );
