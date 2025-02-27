@@ -1,4 +1,4 @@
-import { View, FlatList } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Heading } from '@/components/ui/heading';
@@ -8,10 +8,12 @@ import { VStack } from '@/components/ui/vstack';
 import { IProduct } from '@/interfaces/product-interface';
 import getProductPrice from '../../utils/getProductPrice';
 import { Link } from 'expo-router';
+import { Grid, GridItem } from '@/components/ui/grid';
+
 
 const ProductListItem: React.FC<{ product: IProduct }> = ({ product }) => {
   return (
-    <Card className=" rounded-lg max-w-[360px] flex-1 border-red-100">
+    <Card className=" rounded-lg w-full border-red-100">
       <Link
         href={{
           pathname: `/product/[id]`,
@@ -25,15 +27,15 @@ const ProductListItem: React.FC<{ product: IProduct }> = ({ product }) => {
             uri: product.thumbnail,
           }}
           className="mb-6 h-64 w-full rounded-md "
-          resizeMode="cover"
-          alt={`${product.title}`}
+          resizeMode="contain"
+          alt={product.title}
         />
 
         <VStack className="mb-6">
+        <Text size="sm">{product.title}</Text>
           <Heading size="md" className="mb-4">
-            {product.title}
+          ${getProductPrice(product)}
           </Heading>
-          <Text size="sm">${getProductPrice(product)}</Text>
         </VStack>
       </Link>
     </Card>
@@ -52,17 +54,23 @@ const ProductList: React.FC<ProductListProps> = (props) => {
   }
 
   return (
-    <View className="h-full">
-      <FlatList
-        data={props.data}
-        numColumns={2}
-        contentContainerClassName="gap-2"
-        columnWrapperClassName="gap-2"
-        renderItem={({ item }) => {
-          return <ProductListItem product={item} />;
+    <ScrollView className="h-full px-2">
+      <Grid
+        className="gap-5"
+        _extra={{
+          className: 'grid-cols-2'
         }}
-      />
-    </View>
+      >
+        {props.data.map((product) => (
+          <GridItem key={product.id} _extra={{
+            className: "col-span-1"
+          }}>
+            <ProductListItem product={product} />
+          </GridItem>
+        ))}
+      </Grid>
+      
+    </ScrollView>
   );
 };
 

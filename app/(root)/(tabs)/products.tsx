@@ -8,7 +8,6 @@ const Products = () => {
       fields: '*variants.calculated_price,+variants.inventory_quantity',
     },
   });
-
   if (query.isLoading) {
     return (
       <View>
@@ -18,7 +17,7 @@ const Products = () => {
   }
 
   return (
-    <View className="h-full bg-white">
+    <View className="h-full bg-gray-100">
       <ProductList data={query.data?.products} />
     </View>
   );
