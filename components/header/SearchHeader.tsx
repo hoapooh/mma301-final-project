@@ -31,7 +31,8 @@ const SearchHeader = () => {
             onChangeText={(text) => setVal(text)}
             returnKeyType="search"
             onSubmitEditing={() => {
-              router.navigate(`/search-result?title=${val}`);
+              router.navigate(`/search?q=${val}`);
+              console.log('searching for', val);
             }}
           />
         </Input>

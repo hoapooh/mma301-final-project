@@ -22,12 +22,14 @@ const ProductListItem: React.FC<{ product: IProduct }> = ({ product }) => {
         }}
       >
         <Image
-          source={{
-            uri: product.thumbnail,
-          }}
+          source={
+            product.thumbnail
+              ? { uri: product.thumbnail }
+              : require('@/assets/images/placeholder.jpg') 
+          }
           className="mb-6 h-64 w-full rounded-md "
           resizeMode="contain"
-          alt={product.title}
+          alt={product.title||"Product Image"}
         />
 
         <VStack className="mb-6">
