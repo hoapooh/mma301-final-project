@@ -1,6 +1,7 @@
 export interface ProductImage {
   id: string;
   url: string;
+  rank: number;
 }
 export interface Variant {
   calculated_price: {
@@ -8,10 +9,11 @@ export interface Variant {
   };
 }
 export interface IProduct {
+  id: string;
   title: string;
   status: string;
   thumbnail: string;
-  images: ProductImage;
+  images: ProductImage[];
   collection_id: string;
   type_id: string;
   subtitle: string;

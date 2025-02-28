@@ -1,6 +1,7 @@
-import React from 'react';
+import HeaderRight from '@/components/header/HeaderRight';
+import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
-import { FontAwesome6, Feather, Ionicons } from '@expo/vector-icons';
+import React from 'react';
 
 const TabsLayout = () => {
   return (
@@ -8,7 +9,8 @@ const TabsLayout = () => {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: '#282828',
+          backgroundColor: '#111',
+          height: 75,
         },
         tabBarActiveTintColor: '#fff',
         tabBarInactiveTintColor: '#d3d3d3',
@@ -17,9 +19,11 @@ const TabsLayout = () => {
       <Tabs.Screen
         name="products"
         options={{
-          title: 'Products',
+          title: 'Home',
+          headerShown: true,
+          headerRight: () => <HeaderRight />,
           tabBarIcon: ({ color }) => (
-            <FontAwesome6 name="computer" size={24} color={color} />
+            <Ionicons name="home-outline" size={26} color={color} />
           ),
         }}
       />
@@ -28,7 +32,7 @@ const TabsLayout = () => {
         options={{
           title: 'Search',
           tabBarIcon: ({ color }) => (
-            <Feather name="search" size={24} color={color} />
+            <Ionicons name="search" size={26} color={color} />
           ),
         }}
       />
@@ -37,7 +41,7 @@ const TabsLayout = () => {
         options={{
           title: 'Bag',
           tabBarIcon: ({ color }) => (
-            <Ionicons name="bag-outline" size={24} color={color} />
+            <Ionicons name="bag-outline" size={26} color={color} />
           ),
         }}
       />

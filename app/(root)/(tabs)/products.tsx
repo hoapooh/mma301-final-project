@@ -20,7 +20,7 @@ const Products = () => {
   }
 
   return (
-    <View>
+    <View className="h-full bg-white">
       <ProductList data={query.data?.products} />
       <Button title="clear" onPress={() => router.push('/sign-in')} />
     </View>

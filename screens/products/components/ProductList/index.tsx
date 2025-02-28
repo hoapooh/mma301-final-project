@@ -7,27 +7,37 @@ import { Text } from '@/components/ui/text';
 import { VStack } from '@/components/ui/vstack';
 import { IProduct } from '@/interfaces/product-interface';
 import getProductPrice from '../../utils/getProductPrice';
+import { Link } from 'expo-router';
 import { Button, ButtonText } from '@/components/ui/button';
 import { router } from 'expo-router';
 
 const ProductListItem: React.FC<{ product: IProduct }> = ({ product }) => {
   return (
-    <Card className="p-5 rounded-lg max-w-[360px] flex-1">
-      <Image
-        source={{
-          uri: product.thumbnail,
+    <Card className=" rounded-lg max-w-[360px] flex-1 border-red-100">
+      <Link
+        href={{
+          pathname: `/product/[id]`,
+          params: {
+            id: product.id,
+          },
         }}
-        className="mb-6 h-64 w-full rounded-md "
-        resizeMode="cover"
-        alt={`${product.title}`}
-      />
+      >
+        <Image
+          source={{
+            uri: product.thumbnail,
+          }}
+          className="mb-6 h-64 w-full rounded-md "
+          resizeMode="cover"
+          alt={`${product.title}`}
+        />
 
-      <VStack className="mb-6">
-        <Heading size="md" className="mb-4">
-          {product.title}
-        </Heading>
-        <Text size="sm">${getProductPrice(product)}</Text>
-      </VStack>
+        <VStack className="mb-6">
+          <Heading size="md" className="mb-4">
+            {product.title}
+          </Heading>
+          <Text size="sm">${getProductPrice(product)}</Text>
+        </VStack>
+      </Link>
     </Card>
   );
 };
@@ -44,7 +54,7 @@ const ProductList: React.FC<ProductListProps> = (props) => {
   }
 
   return (
-    <View>
+    <View className="h-full">
       <FlatList
         data={props.data}
         numColumns={2}
