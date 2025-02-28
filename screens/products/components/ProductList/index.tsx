@@ -8,6 +8,8 @@ import { VStack } from '@/components/ui/vstack';
 import { IProduct } from '@/interfaces/product-interface';
 import getProductPrice from '../../utils/getProductPrice';
 import { Link } from 'expo-router';
+import { Button, ButtonText } from '@/components/ui/button';
+import { router } from 'expo-router';
 
 const ProductListItem: React.FC<{ product: IProduct }> = ({ product }) => {
   return (
@@ -62,6 +64,14 @@ const ProductList: React.FC<ProductListProps> = (props) => {
           return <ProductListItem product={item} />;
         }}
       />
+      <Button
+        size="md"
+        variant="solid"
+        action="primary"
+        onPress={() => router.push('/(auth)/sign-up')}
+      >
+        <ButtonText>Go to Sign Up Page</ButtonText>
+      </Button>
     </View>
   );
 };

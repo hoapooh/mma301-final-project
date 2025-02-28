@@ -24,9 +24,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Feather } from '@expo/vector-icons';
 import { AuthLayout } from '../layout';
 import { Link, router } from 'expo-router';
-import useAuthSlice from '@/features/Auth/authSlice';
 import { IUserRegister } from '@/interfaces/user-interface';
 import { Spinner } from '@/components/ui/spinner';
+import useSignUp from './hooks/useSignUp';
 
 const signUpSchema = z.object({
   email: z.string().min(1, 'Email is required').email(),
@@ -54,7 +54,7 @@ const SignUpWithLeftBackground = () => {
     resolver: zodResolver(signUpSchema),
   });
   const toast = useToast();
-  const { signup, isLoading } = useAuthSlice();
+  const { isSigningUp, signUpError, signUpMutation } = useSignUp();
 
   const onSubmit = async (data: SignUpSchemaType) => {
     try {
@@ -78,7 +78,7 @@ const SignUpWithLeftBackground = () => {
         password: data.password,
       };
 
-      await signup(signUpData);
+      signUpMutation(signUpData);
 
       toast.show({
         placement: 'bottom right',
@@ -291,7 +291,7 @@ const SignUpWithLeftBackground = () => {
         <VStack className="w-full mt-7" space="lg">
           <Button className="w-full" onPress={handleSubmit(onSubmit)}>
             <ButtonText className="font-medium">
-              {isLoading ? (
+              {isSigningUp ? (
                 <Spinner size={'small'} color={colors.white} />
               ) : (
                 'Sign up'

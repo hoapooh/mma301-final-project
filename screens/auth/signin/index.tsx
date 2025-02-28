@@ -24,7 +24,8 @@ import Feather from '@expo/vector-icons/Feather';
 import { AuthLayout } from '../layout';
 import { Link, router } from 'expo-router';
 import { IUserLogin } from '@/interfaces/user-interface';
-import useAuthSlice from '@/features/Auth/authSlice';
+import useAppStore from '@/configs/store';
+import useSignIn from './hooks/useSignIn';
 
 const loginSchema = z.object({
   email: z.string().min(1, 'Email is required').email(),
@@ -54,8 +55,7 @@ const LoginWithLeftBackground = () => {
     emailValid: true,
     passwordValid: true,
   });
-  const login = useAuthSlice(useCallback((state) => state.login, []));
-  const isLoading = useAuthSlice(useCallback((state) => state.isLoading, []));
+  const { isSigningIn, signInMutation, signInError } = useSignIn();
 
   const onSubmit = useCallback(
     async (data: LoginSchemaType) => {
@@ -65,7 +65,7 @@ const LoginWithLeftBackground = () => {
           password: data.password,
         };
 
-        await login(loginData);
+        signInMutation(loginData);
 
         toast.show({
           placement: 'bottom',
@@ -95,7 +95,7 @@ const LoginWithLeftBackground = () => {
         });
       }
     },
-    [login, toast, reset]
+    [signInMutation, toast, reset]
   );
 
   const [showPassword, setShowPassword] = useState(false);
@@ -226,10 +226,10 @@ const LoginWithLeftBackground = () => {
           <Button
             className="w-full"
             onPress={handleSubmit(onSubmit)}
-            isDisabled={isLoading}
+            isDisabled={isSigningIn}
           >
             <ButtonText className="font-medium">
-              {isLoading ? 'Logging in...' : 'Log in'}
+              {isSigningIn ? 'Logging in...' : 'Log in'}
             </ButtonText>
           </Button>
         </VStack>
