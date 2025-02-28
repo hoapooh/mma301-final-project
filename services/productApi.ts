@@ -5,6 +5,7 @@ import { AxiosResponse } from 'axios';
 export interface ProductApiParams {
   fields?: string;
   regionID?: string | null;
+  q?: string | null;
 }
 
 export const productApi = {
@@ -27,7 +28,7 @@ export const productApi = {
     params: ProductApiParams
   ): Promise<AxiosResponse<{ product: IProduct }>> => {
     return await axiosInstance.get(
-      `/store/products/${id}?fields=${params.fields}&region_id=${params.regionID}`
+      `/store/products/${id}?fields=${params.fields}&region_id=${params.regionID}&q=${params.q}`
     );
   },
 };

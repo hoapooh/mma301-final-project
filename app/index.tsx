@@ -15,6 +15,7 @@ export default function Index() {
 
   useEffect(() => {
     if (query.isSuccess) {
+      console.log(query.data.regions[0].id);
       setRegion(query.data.regions[0].id);
     }
   }, [query.isSuccess]);
