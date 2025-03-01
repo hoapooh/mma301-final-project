@@ -22,12 +22,11 @@ export const productApi = {
     // return await axiosInstance.get(
     //   `/store/products?fields=${params.fields}&region_id=${params.regionID}&q=${params.q}`
     // );
-    console.log('params', params);
     return await axiosInstance.get('/store/products', {
       params: {
-        fields: params.fields || '', 
-        region_id: params.regionID || '', 
-        ...(params.q ? { q: params.q } : {}), 
+        fields: params.fields || '',
+        region_id: params.regionID || '',
+        ...(params.q ? { q: params.q } : {}),
       },
     });
   },

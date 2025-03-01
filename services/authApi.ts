@@ -59,7 +59,6 @@ export const authApi = {
       if (axios.isAxiosError(error)) {
         throw new Error(error.response?.data?.message || 'Registration failed');
       }
-      console.log(error);
 
       throw error;
     }

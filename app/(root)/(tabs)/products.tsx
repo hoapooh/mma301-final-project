@@ -3,11 +3,7 @@ import useProductList from '@/screens/products/hooks/useProductList';
 import React from 'react';
 import { Text, View } from 'react-native';
 const Products = () => {
-  const query = useProductList({
-    apiParams: {
-      fields: '*variants.calculated_price,+variants.inventory_quantity',
-    },
-  });
+  const query = useProductList();
   if (query.isLoading) {
     return (
       <View>

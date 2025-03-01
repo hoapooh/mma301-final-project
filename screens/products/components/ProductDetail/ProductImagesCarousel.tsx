@@ -27,12 +27,8 @@ const Index: React.FC<{ data: ProductImage[] | [] | undefined }> = (props) => {
         data={props.data}
         defaultScrollOffsetValue={scrollOffsetValue}
         style={{ width: '100%' }}
-        onScrollStart={() => {
-          console.log('Scroll start');
-        }}
-        onScrollEnd={() => {
-          console.log('Scroll end');
-        }}
+        onScrollStart={() => {}}
+        onScrollEnd={() => {}}
         onConfigurePanGesture={(g: { enabled: (arg0: boolean) => any }) => {
           'worklet';
           g.enabled(false);

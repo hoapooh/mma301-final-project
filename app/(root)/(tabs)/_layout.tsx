@@ -27,16 +27,19 @@ const TabsLayout = () => {
           ),
         }}
       />
-      <Tabs.Screen
+      {/* <Tabs.Screen
         name="search"
         options={{
           title: 'Search',
-          header: () => <SearchHeader />,
+          headerTitleStyle: {
+            display: 'none',
+          },
+          headerRight: () => <SearchHeader />,
           tabBarIcon: ({ color }) => (
             <Ionicons name="search" size={26} color={color} />
           ),
         }}
-      />
+      /> */}
       <Tabs.Screen
         name="bag"
         options={{
