@@ -6,24 +6,27 @@ import {
   setTokenToLocalStorage,
 } from '@/utils/authUtils';
 import { create } from 'zustand';
+import { SliceInterface } from '@/configs/store';
 
-interface AuthState {
+export interface AuthSlice {
   token: string | null;
   isAuthenticated: boolean;
   isLoading: boolean;
   error: string | null;
-  signup: (credentials: IUserRegister) => Promise<void>;
+  setAuthenticated: (isAuthenticated: boolean) => void;
+  // signup: (credentials: IUserRegister) => Promise<void>;
   login: (credentials: IUserLogin) => Promise<void>;
   logout: () => Promise<void>;
   initializeAuth: () => Promise<void>;
 }
 
-const useAuthSlice = create<AuthState>((set, get) => ({
+export const createAuthSlice: SliceInterface<AuthSlice> = (set) => ({
   token: null,
   isAuthenticated: false,
   isLoading: false,
   error: null,
-  signup: async (credentials) => {
+  setAuthenticated: (isAuthenticated) => set({ isAuthenticated }),
+  /* signup: async (credentials) => {
     set({ isLoading: true, error: null });
     try {
       await authApi.signup(credentials);
@@ -34,7 +37,7 @@ const useAuthSlice = create<AuthState>((set, get) => ({
     } finally {
       set({ isLoading: false });
     }
-  },
+  }, */
   login: async (credentials) => {
     set({ isLoading: true, error: null });
     try {
@@ -74,6 +77,4 @@ const useAuthSlice = create<AuthState>((set, get) => ({
       set({ isLoading: false });
     }
   },
-}));
-
-export default useAuthSlice;
+});
