@@ -5,12 +5,7 @@ import { router } from 'expo-router';
 import React from 'react';
 import { Button, Text, View } from 'react-native';
 const Products = () => {
-  const query = useProductList({
-    apiParams: {
-      fields: '*variants.calculated_price,+variants.inventory_quantity',
-    },
-  });
-
+  const query = useProductList();
   if (query.isLoading) {
     return (
       <View>
@@ -20,7 +15,7 @@ const Products = () => {
   }
 
   return (
-    <View className="h-full bg-white">
+    <View className="h-full bg-gray-100">
       <ProductList data={query.data?.products} />
       <Button title="clear" onPress={() => router.push('/sign-in')} />
     </View>

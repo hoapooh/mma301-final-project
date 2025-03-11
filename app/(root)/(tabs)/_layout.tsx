@@ -1,4 +1,5 @@
 import HeaderRight from '@/components/header/HeaderRight';
+import SearchHeader from '@/components/header/SearchHeader';
 import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 import React from 'react';
@@ -7,7 +8,6 @@ const TabsLayout = () => {
   return (
     <Tabs
       screenOptions={{
-        headerShown: false,
         tabBarStyle: {
           backgroundColor: '#111',
           height: 75,
@@ -27,15 +27,19 @@ const TabsLayout = () => {
           ),
         }}
       />
-      <Tabs.Screen
+      {/* <Tabs.Screen
         name="search"
         options={{
           title: 'Search',
+          headerTitleStyle: {
+            display: 'none',
+          },
+          headerRight: () => <SearchHeader />,
           tabBarIcon: ({ color }) => (
             <Ionicons name="search" size={26} color={color} />
           ),
         }}
-      />
+      /> */}
       <Tabs.Screen
         name="bag"
         options={{
