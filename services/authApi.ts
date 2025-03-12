@@ -1,5 +1,6 @@
 import axiosInstance from '@/configs/axiosInstance';
 import {
+  IUser,
   IUserLogin,
   IUserRegister,
   IUserResponse,
@@ -64,20 +65,40 @@ export const authApi = {
     }
   },
 
-  logout: async (): Promise<void> => {
+  /* logout: async (): Promise<void> => {
     await axiosInstance.delete('/auth/session');
-  },
+  }, */
 
-  getCurrentUser: async (): Promise<IUserResponse> => {
+  getCurrentUser: async (): Promise<IUser> => {
     try {
-      const response = await axiosInstance.get('/store/customers/me', {
-        withCredentials: true,
-      });
+      const response = await axiosInstance.get('/store/customers/me');
       return response.data;
     } catch (error) {
       // Add specific error handling
       if (axios.isAxiosError(error)) {
         throw new Error(error.response?.data?.message || 'Failed to get user');
+      }
+      throw error;
+    }
+  },
+
+  createAddress: async (data: {
+    first_name: string;
+    last_name: string;
+    phone: string;
+    address_name: string;
+  }): Promise<IUser> => {
+    try {
+      const response = await axiosInstance.post(
+        '/store/customers/me/addresses',
+        { ...data, is_default_shipping: true, is_default_billing: true }
+      );
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(
+          error.response?.data?.message || 'Failed to create address'
+        );
       }
       throw error;
     }

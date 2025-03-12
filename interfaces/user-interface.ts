@@ -1,11 +1,30 @@
 export interface IUser {
+  customer: {
+    id: string;
+    email: string;
+    password?: string;
+    phone?: string;
+    first_name?: string;
+    last_name?: string;
+    addresses: IAddress[];
+    createdAt?: Date;
+    updatedAt?: Date;
+  };
+}
+
+interface IAddress {
   id: string;
-  email: string;
-  password?: string;
-  firstName?: string;
-  lastName?: string;
-  createdAt?: Date;
-  updatedAt?: Date;
+  address_name: string;
+  is_default_shipping: boolean;
+  is_default_billing: boolean;
+  customer_id: string;
+  first_name: string;
+  last_name: string;
+  city: string;
+  phone: string;
+  country_code: string;
+  province: string;
+  created_at: Date;
 }
 
 export interface IUserLogin {

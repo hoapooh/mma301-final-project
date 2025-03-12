@@ -24,7 +24,6 @@ import Feather from '@expo/vector-icons/Feather';
 import { AuthLayout } from '../layout';
 import { Link, router } from 'expo-router';
 import { IUserLogin } from '@/interfaces/user-interface';
-import useAppStore from '@/configs/store';
 import useSignIn from './hooks/useSignIn';
 
 const loginSchema = z.object({
@@ -115,7 +114,11 @@ const LoginWithLeftBackground = () => {
         <Heading size="3xl">Log in</Heading>
         <Text>
           Welcome to{' '}
-          <Text bold size="lg">
+          <Text
+            bold
+            size="lg"
+            onPress={() => router.push('/(root)/(tabs)/products')}
+          >
             CapyCloset
           </Text>
         </Text>

@@ -1,31 +1,31 @@
-import { authApi } from '@/services/authApi';
-import { IUserLogin, IUserRegister } from '@/interfaces/user-interface';
+import { IUser } from '@/interfaces/user-interface';
 import {
   clearAuthLocalStorage,
   getTokenFromLocalStorage,
   setTokenToLocalStorage,
 } from '@/utils/authUtils';
-import { create } from 'zustand';
 import { SliceInterface } from '@/configs/store';
 
 export interface AuthSlice {
   token: string | null;
+  user: IUser | null;
   isAuthenticated: boolean;
   isLoading: boolean;
   error: string | null;
-  setAuthenticated: (isAuthenticated: boolean) => void;
   // signup: (credentials: IUserRegister) => Promise<void>;
-  login: (credentials: IUserLogin) => Promise<void>;
+  setUserData: (user: IUser) => void;
+  login: (token: string) => Promise<void>;
   logout: () => Promise<void>;
   initializeAuth: () => Promise<void>;
 }
 
 export const createAuthSlice: SliceInterface<AuthSlice> = (set) => ({
   token: null,
+  user: null,
   isAuthenticated: false,
   isLoading: false,
   error: null,
-  setAuthenticated: (isAuthenticated) => set({ isAuthenticated }),
+
   /* signup: async (credentials) => {
     set({ isLoading: true, error: null });
     try {
@@ -38,12 +38,16 @@ export const createAuthSlice: SliceInterface<AuthSlice> = (set) => ({
       set({ isLoading: false });
     }
   }, */
-  login: async (credentials) => {
+
+  setUserData: (user) => {
+    set({ user, isAuthenticated: true });
+  },
+
+  login: async (token) => {
     set({ isLoading: true, error: null });
     try {
-      const data = await authApi.login(credentials);
-      await setTokenToLocalStorage(data.token);
-      set({ token: data.token, isAuthenticated: true });
+      await setTokenToLocalStorage(token);
+      set({ token: token, isAuthenticated: true });
     } catch (error: any) {
       set({ error: error.message || 'Login failed' });
       throw new Error(error.message || 'Login failed');
@@ -51,18 +55,19 @@ export const createAuthSlice: SliceInterface<AuthSlice> = (set) => ({
       set({ isLoading: false });
     }
   },
+
   logout: async () => {
     set({ isLoading: true, error: null });
     try {
-      await authApi.logout();
       await clearAuthLocalStorage();
-      set({ token: null, isAuthenticated: false });
+      set({ token: null, isAuthenticated: false, user: null });
     } catch (error: any) {
       set({ error: error.message || 'Logout failed' });
     } finally {
       set({ isLoading: false });
     }
   },
+
   initializeAuth: async () => {
     set({ isLoading: true });
     try {
