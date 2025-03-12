@@ -4,7 +4,7 @@ import { authApi } from '@/services/authApi';
 import { useMutation } from '@tanstack/react-query';
 
 const useSignIn = () => {
-  const { setAuthenticated } = useAppStore((state) => state);
+  const { login } = useAppStore((state) => state);
 
   const {
     mutate: signInMutation,
@@ -12,8 +12,8 @@ const useSignIn = () => {
     error: signInError,
   } = useMutation({
     mutationFn: (signInData: IUserLogin) => authApi.login(signInData),
-    onSuccess: () => {
-      setAuthenticated(true);
+    onSuccess: (data) => {
+      login(data.token);
     },
   });
 
