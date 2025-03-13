@@ -10,7 +10,7 @@ const API_KEY = process.env.EXPO_PUBLIC_API_KEY;
 
 const axiosInstance = axios.create({
   baseURL: API_URL,
-  withCredentials: true,
+  // withCredentials: true,
   headers: {
     'x-publishable-api-key': API_KEY,
   },

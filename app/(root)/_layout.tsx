@@ -1,8 +1,12 @@
+import { useCurrentUser } from '@/hooks/useCurrentUser';
 import { Stack } from 'expo-router';
-import React from 'react';
-import { SafeAreaView } from 'react-native';
+import React, { useEffect } from 'react';
 
 const RootLayout = () => {
+  const userQuery = useCurrentUser();
+
+  useEffect(() => {}, [userQuery]);
+
   return (
     <Stack>
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
