@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import {
   Actionsheet,
@@ -22,10 +22,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Keyboard } from 'react-native';
 import { useCreateAddress } from '../hooks/useCreateAddress';
 import { Toast, ToastTitle, useToast } from '@/components/ui/toast';
+import { IAddress } from '@/interfaces/user-interface';
+import { useUpdateAddress } from '../hooks/useUpdateAddress';
 
 interface AddressActionSheetProps {
   showActionsheet: boolean;
   handleClose: () => void;
+  selectedAddress: IAddress | null;
 }
 
 const addressSchema = z.object({
@@ -40,14 +43,18 @@ type AddressSchemaType = z.infer<typeof addressSchema>;
 const AddressActionSheet: React.FC<AddressActionSheetProps> = ({
   showActionsheet,
   handleClose,
+  selectedAddress,
 }) => {
   const { CreatingAddressError, createAddressMutation, isCreatingAddress } =
     useCreateAddress();
+  const { UpdatingAddressError, updateAddressMutation, isUpdatingAddress } =
+    useUpdateAddress();
 
   const {
     control,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors },
   } = useForm<AddressSchemaType>({
     resolver: zodResolver(addressSchema),
@@ -59,11 +66,60 @@ const AddressActionSheet: React.FC<AddressActionSheetProps> = ({
     },
   });
 
-  const toast = useToast();
+  // Set form values when selectedAddress changes
+  useEffect(() => {
+    if (selectedAddress) {
+      setValue('first_name', selectedAddress.first_name || '');
+      setValue('last_name', selectedAddress.last_name || '');
+      setValue('phone', selectedAddress.phone || '');
+      setValue('address_name', selectedAddress.address_name || '');
+    } else {
+      reset();
+    }
+  }, [selectedAddress, setValue, reset]);
 
+  const toast = useToast();
   const onSubmit = async (data: AddressSchemaType) => {
     try {
-      createAddressMutation(data);
+      if (selectedAddress) {
+        // Update existing address
+        updateAddressMutation({
+          addressId: selectedAddress.id,
+          addressData: data,
+        });
+
+        toast.show({
+          placement: 'bottom',
+          containerStyle: {
+            marginBottom: 60,
+          },
+          render: ({ id }) => (
+            <Toast nativeID={id} variant="solid" action="success">
+              <ToastTitle>Address updated successfully!</ToastTitle>
+            </Toast>
+          ),
+        });
+      } else {
+        // Create new address
+        createAddressMutation(data);
+
+        toast.show({
+          placement: 'bottom',
+          containerStyle: {
+            marginBottom: 60,
+          },
+          render: ({ id }) => (
+            <Toast nativeID={id} variant="solid" action="success">
+              <ToastTitle>Address created successfully!</ToastTitle>
+            </Toast>
+          ),
+        });
+      }
+
+      reset();
+      handleClose();
+    } catch (error: any) {
+      console.log('Error creating address:', error.message);
 
       toast.show({
         placement: 'bottom',
@@ -71,18 +127,11 @@ const AddressActionSheet: React.FC<AddressActionSheetProps> = ({
           marginBottom: 60,
         },
         render: ({ id }) => (
-          <Toast nativeID={id} variant="solid" action="success">
-            <ToastTitle>Address created successfully!</ToastTitle>
+          <Toast nativeID={id} variant="solid" action="error">
+            <ToastTitle>Error: {error.message}</ToastTitle>
           </Toast>
         ),
       });
-
-      console.log(data);
-
-      reset();
-      handleClose();
-    } catch (error: any) {
-      console.log('Error creating address:', error.message);
     }
   };
 
@@ -90,6 +139,19 @@ const AddressActionSheet: React.FC<AddressActionSheetProps> = ({
     Keyboard.dismiss();
     handleSubmit(onSubmit)();
   };
+
+  const isProcessing = isCreatingAddress || isUpdatingAddress;
+  const buttonText = selectedAddress
+    ? isUpdatingAddress
+      ? 'Updating...'
+      : 'Update Address'
+    : isCreatingAddress
+      ? 'Creating...'
+      : 'Create Address';
+
+  if (CreatingAddressError) {
+    console.log('Creating address error:', CreatingAddressError);
+  }
 
   return (
     <Actionsheet isOpen={showActionsheet} onClose={handleClose}>
@@ -127,7 +189,7 @@ const AddressActionSheet: React.FC<AddressActionSheetProps> = ({
                           name="person"
                           size={22}
                           color="black"
-                          className="ml-2"
+                          style={{ marginLeft: 8 }}
                         />
                       )}
                     />
@@ -174,7 +236,7 @@ const AddressActionSheet: React.FC<AddressActionSheetProps> = ({
                           name="person"
                           size={22}
                           color="black"
-                          className="ml-2"
+                          style={{ marginLeft: 8 }}
                         />
                       )}
                     />
@@ -214,15 +276,10 @@ const AddressActionSheet: React.FC<AddressActionSheetProps> = ({
               }}
               render={({ field: { onChange, onBlur, value } }) => (
                 <Input>
-                  <InputSlot>
+                  <InputSlot style={{ marginLeft: 8 }}>
                     <InputIcon
                       as={() => (
-                        <FontAwesome6
-                          name="phone"
-                          size={22}
-                          color="black"
-                          className="ml-2"
-                        />
+                        <FontAwesome6 name="phone" size={22} color="black" />
                       )}
                     />
                   </InputSlot>
@@ -244,7 +301,7 @@ const AddressActionSheet: React.FC<AddressActionSheetProps> = ({
           {/* address_name */}
           <FormControl>
             <FormControlLabel>
-              <FormControlLabelText>City</FormControlLabelText>
+              <FormControlLabelText>Address Name</FormControlLabelText>
             </FormControlLabel>
             <Controller
               defaultValue=""
@@ -262,15 +319,10 @@ const AddressActionSheet: React.FC<AddressActionSheetProps> = ({
               }}
               render={({ field: { onChange, onBlur, value } }) => (
                 <Input>
-                  <InputSlot>
+                  <InputSlot style={{ marginLeft: 8 }}>
                     <InputIcon
                       as={() => (
-                        <FontAwesome5
-                          name="city"
-                          size={18}
-                          color="black"
-                          className="ml-2"
-                        />
+                        <FontAwesome5 name="city" size={18} color="black" />
                       )}
                     />
                   </InputSlot>
@@ -291,10 +343,8 @@ const AddressActionSheet: React.FC<AddressActionSheetProps> = ({
         </VStack>
 
         <VStack className="w-full mt-4">
-          <Button onPress={handleSubmit(onSubmit)} disabled={isCreatingAddress}>
-            <ButtonText className="flex-1">
-              {isCreatingAddress ? 'Creating...' : 'Create Address'}
-            </ButtonText>
+          <Button onPress={handleSubmit(onSubmit)} disabled={isProcessing}>
+            <ButtonText className="flex-1">{buttonText}</ButtonText>
           </Button>
         </VStack>
       </ActionsheetContent>

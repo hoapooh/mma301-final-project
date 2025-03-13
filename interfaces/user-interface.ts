@@ -12,7 +12,7 @@ export interface IUser {
   };
 }
 
-interface IAddress {
+export interface IAddress {
   id: string;
   address_name: string;
   is_default_shipping: boolean;
@@ -25,6 +25,13 @@ interface IAddress {
   country_code: string;
   province: string;
   created_at: Date;
+}
+
+export interface IAddressUpdate {
+  first_name: string;
+  last_name: string;
+  phone: string;
+  address_name: string;
 }
 
 export interface IUserLogin {

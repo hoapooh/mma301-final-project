@@ -5,7 +5,7 @@ interface Props {
   apiParams?: OrderApiParams;
 }
 
-export const useOrderList = (props: Props) => {
+export const useOrderList = (props?: Props) => {
   const {
     data: orderListData,
     isPending: isLoadingOrderList,
@@ -14,7 +14,7 @@ export const useOrderList = (props: Props) => {
     queryKey: ['orderList'],
     queryFn: () =>
       orderApi.getOrderList({
-        fields: '*items,' + (props.apiParams?.fields ?? ''),
+        fields: '*items,' + (props?.apiParams?.fields ?? ''),
       }),
     select: (res) => res.data,
   });

@@ -1,8 +1,8 @@
 import { ScrollView } from 'react-native';
 import React from 'react';
-import { useOrderList } from '../hooks/useOrderList';
 import { Spinner } from '@/components/ui/spinner';
 import { Text } from '@/components/ui/text';
+import { useOrderList } from '../hooks/useOrderList';
 
 const Orders = () => {
   const { orderListData, isLoadingOrderList, orderListError } = useOrderList();
@@ -12,8 +12,6 @@ const Orders = () => {
   if (orderListError) {
     return <Text>Error loading orders: {orderListError.message}</Text>;
   }
-
-  console.log(orderListData);
 
   return (
     <ScrollView
