@@ -1,5 +1,6 @@
 import axiosInstance from '@/configs/axiosInstance';
 import {
+  IAddressUpdate,
   IUser,
   IUserLogin,
   IUserRegister,
@@ -98,6 +99,39 @@ export const authApi = {
       if (axios.isAxiosError(error)) {
         throw new Error(
           error.response?.data?.message || 'Failed to create address'
+        );
+      }
+      throw error;
+    }
+  },
+
+  updateAddress: async (addressId: string, addressData: IAddressUpdate) => {
+    try {
+      const response = await axiosInstance.post(
+        `/store/customers/me/addresses/${addressId}`,
+        addressData
+      );
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(
+          error.response?.data?.message || 'Failed to update address'
+        );
+      }
+      throw error;
+    }
+  },
+
+  deleteAddress: async (addressId: string): Promise<IUser> => {
+    try {
+      const response = await axiosInstance.delete(
+        `/store/customers/me/addresses/${addressId}`
+      );
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(
+          error.response?.data?.message || 'Failed to delete address'
         );
       }
       throw error;
