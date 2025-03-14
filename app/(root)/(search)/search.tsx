@@ -21,10 +21,12 @@ const sortOptions = [
   { key: "a-z", label: "Name: A-Z" },
   { key: "z-a", label: "Name: Z-A" },
 ];
-const MenuButton = ()=>{
+const SortSelection = ()=>{
   return (
-    <View style={{ width: "100%", display: 'flex', justifyContent: 'flex-end', flexDirection:'row', padding: 10}}>
-    <Select>
+    
+    <View style={{ width: "100%", padding: 10, display: 'flex', flexDirection:'row'}}>
+    <Text style={{ width:"50%", justifyContent: 'flex-start', opacity: 0.5, textAlignVertical:'center'}}>Total product(s):</Text>
+    <Select style={{ width:"50%", justifyContent: 'flex-end' }}>
       <SelectTrigger variant="outline" size="md" className="w-full h-50" >
         <SelectInput placeholder="Sort option"/>
         <SelectIcon className="mr-3" as={ChevronDownIcon} />
@@ -42,6 +44,7 @@ const MenuButton = ()=>{
       </SelectPortal>
     </Select>
     </View>
+   
   )
 }
 const SearchResult = () => {
@@ -54,7 +57,7 @@ const SearchResult = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      <MenuButton/>
+      <SortSelection/>
       <ProductList data={query.data?.products} />
     </View>
   );
