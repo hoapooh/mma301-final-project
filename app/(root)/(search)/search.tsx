@@ -21,11 +21,10 @@ const sortOptions = [
   { key: "a-z", label: "Name: A-Z" },
   { key: "z-a", label: "Name: Z-A" },
 ];
-const SortSelection = ()=>{
+const SortSelection = (props:any)=>{
   return (
-    
     <View style={{ width: "100%", padding: 10, display: 'flex', flexDirection:'row'}}>
-    <Text style={{ width:"50%", justifyContent: 'flex-start', opacity: 0.5, textAlignVertical:'center'}}>Total product(s):</Text>
+    <Text style={{ width:"50%", justifyContent: 'flex-start', opacity: 0.5, textAlignVertical:'center'}}>Total product(s): {props.data?.length || 0}</Text>
     <Select style={{ width:"50%", justifyContent: 'flex-end' }}>
       <SelectTrigger variant="outline" size="md" className="w-full h-50" >
         <SelectInput placeholder="Sort option"/>
@@ -57,7 +56,7 @@ const SearchResult = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      <SortSelection/>
+      <SortSelection data={query.data?.products}/>
       <ProductList data={query.data?.products} />
     </View>
   );
