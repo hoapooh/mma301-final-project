@@ -26,7 +26,7 @@ const MenuButton = ()=>{
     <View style={{ width: "100%", display: 'flex', justifyContent: 'flex-end', flexDirection:'row', padding: 10}}>
     <Select>
       <SelectTrigger variant="outline" size="md" className="w-full h-50" >
-        <SelectInput placeholder="Select option"/>
+        <SelectInput placeholder="Sort option"/>
         <SelectIcon className="mr-3" as={ChevronDownIcon} />
       </SelectTrigger>
       <SelectPortal>
