@@ -59,7 +59,12 @@ const ProductDetail = () => {
           />
         </VStack>
       </Box>
-      <DetailBottomNav />
+      <DetailBottomNav
+        data={{
+          variant_id: selectedVariant ?? '',
+          quantity: 1,
+        }}
+      />
     </>
   );
 };

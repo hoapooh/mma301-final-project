@@ -1,6 +1,5 @@
 import ProductList from '@/screens/products/components/ProductList';
 import useProductList from '@/screens/products/hooks/useProductList';
-import { useNavigation } from 'expo-router';
 import { useLocalSearchParams } from 'expo-router/build/hooks';
 import { Text, View } from 'react-native';
 import {
@@ -47,7 +46,6 @@ const MenuButton = ()=>{
 }
 const SearchResult = () => {
   const params = useLocalSearchParams();
-  const nav = useNavigation();
   const q = Array.isArray(params.q) ? params.q[0] : params.q || '';
   const query = useProductList({ apiParams: { q } });
   if (query.isLoading) {
