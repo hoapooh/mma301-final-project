@@ -2,10 +2,11 @@ import { IProduct } from './product-interface';
 
 export interface ICartItem {
   id: string;
-  product: IProduct;
   quantity: number;
-  title: string;
+  variant_title: string;
+  product_title: string;
   thumbnail: string;
+  unit_price: number;
 }
 
 export interface ICart {

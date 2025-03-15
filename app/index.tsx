@@ -8,9 +8,8 @@ import { useEffect } from 'react';
 
 export default function Index() {
   const setRegion = useAppStore((state) => state.setRegion);
-  const { isLoading: cartLoading } = useCart();
   const { initializeAuth } = useAppStore((state) => state);
-
+  const { query: cartQuery, cartID } = useCart();
   const query = useQuery({
     queryKey: ['regionList'],
     queryFn: () => regionApi.getRegions(),
@@ -28,7 +27,7 @@ export default function Index() {
     }
   }, [query.isSuccess]);
 
-  if (query.isLoading || cartLoading) {
+  if (query.isLoading || cartQuery.isLoading) {
     return <ScreenLoader />;
   }
 

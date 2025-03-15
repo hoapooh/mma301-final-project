@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react';
 const KEY = 'CART_ID';
 
 const useCart = () => {
-  const store = useAppStore();
   const [cartID, setCartID] = useState<string | null>(null);
   const mutation = useMutation({
     mutationFn: cartApi.createCart,
@@ -45,7 +44,6 @@ const useCart = () => {
     const run = async () => {
       try {
         const res = await AsyncStorage.getItem(KEY);
-        console.log('res', res);
         if (!res) {
           mutation.mutate();
         }
@@ -56,17 +54,11 @@ const useCart = () => {
     run();
   }, [mutation.isPending]);
 
-  useEffect(() => {
-    if (query.isSuccess) {
-      store.setCart(query.data.cart);
-    }
-  }, [query.isLoading]);
+  console.log(cartID);
 
   return {
-    cart: store.cart,
     cartID,
-    isLoading: query.isLoading,
-    error: query.error,
+    query,
   };
 };
 

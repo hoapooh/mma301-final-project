@@ -10,7 +10,9 @@ const HeaderRight = () => {
         <Link href="/search">
           <Ionicons name="search" size={24} color="black" />
         </Link>
-        <Ionicons name="cart-outline" size={24} color="black" />
+        <Link href="/cart">
+          <Ionicons name="cart-outline" size={24} color="black" />
+        </Link>
       </HStack>
     </View>
   );

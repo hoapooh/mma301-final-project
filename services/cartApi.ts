@@ -20,6 +20,7 @@ export const cartApi = {
   },
 
   addLineItem: async (cartID: string | undefined, data: IAddCart) => {
+    console.log({ cartID, data });
     return await axiosInstance.post(`/store/carts/${cartID}/line-items`, data);
   },
 

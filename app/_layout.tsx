@@ -12,10 +12,9 @@ import { Stack } from 'expo-router';
 import { useEffect } from 'react';
 import type { AppStateStatus } from 'react-native';
 import { AppState, Platform } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 // Create a client
-const queryClient = new QueryClient({
+export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 1000 * 60, // 1 minutes
