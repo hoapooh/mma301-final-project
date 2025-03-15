@@ -1,14 +1,11 @@
-import { ScrollView } from 'react-native';
+import { Center } from '@/components/ui/center';
+import { Text } from '@/components/ui/text';
+import { VStack } from '@/components/ui/vstack';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { VStack } from '@/components/ui/vstack';
-  import { Text } from '@/components/ui/text';
-  import { Center } from '@/components/ui/center';
-import useCart from './hooks/useCart';
+import { ScrollView } from 'react-native';
 
 const Cart = () => {
-  const { cart } = useCart();
-  console.log(cart?.items);
   return (
     <ScrollView
       contentContainerStyle={{

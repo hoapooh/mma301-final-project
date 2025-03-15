@@ -8,15 +8,16 @@ import { useEffect } from 'react';
 
 export default function Index() {
   const setRegion = useAppStore((state) => state.setRegion);
+  const token = useAppStore((state) => state.token);
+  console.log(token);
   const { initializeAuth } = useAppStore((state) => state);
-  const { query: cartQuery, cartID } = useCart();
+  const { query: cartQuery } = useCart();
   const query = useQuery({
     queryKey: ['regionList'],
     queryFn: () => regionApi.getRegions(),
     select: (res) => res.data,
   });
 
-  // Initialize auth state from local storage
   useEffect(() => {
     initializeAuth();
   }, []);

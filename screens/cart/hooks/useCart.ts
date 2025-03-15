@@ -6,6 +6,10 @@ import { useEffect, useState } from 'react';
 
 const KEY = 'CART_ID';
 
+const clearCart = async () => {
+  return await AsyncStorage.removeItem(KEY);
+};
+
 const useCart = () => {
   const [cartID, setCartID] = useState<string | null>(null);
   const mutation = useMutation({
@@ -13,6 +17,7 @@ const useCart = () => {
     onSuccess: async (data) => {
       try {
         await AsyncStorage.setItem(KEY, data.data.cart.id);
+        await cartApi.setCustomer(data.data.cart.id);
         setCartID(data.data.cart.id);
       } catch (error) {
         console.log(error);
@@ -59,6 +64,7 @@ const useCart = () => {
   return {
     cartID,
     query,
+    clearCart,
   };
 };
 
