@@ -60,6 +60,7 @@ export const OptionSection: React.FC<{
 export const VariantSection: React.FC<{
   data: IProductVariant[] | [];
   selectedID: string | null | undefined;
+  optionID: string | null | undefined;
   handleSelect: (id: string) => void;
 }> = (props) => {
   if (!props.data) {
@@ -68,16 +69,22 @@ export const VariantSection: React.FC<{
 
   return (
     <HStack space="md">
-      {props.data.map((o) => {
-        return (
-          <ProductOption
-            key={o.id}
-            content={o.title}
-            isSelected={props.selectedID === o.id}
-            onPress={() => props.handleSelect(o.id)}
-          />
-        );
-      })}
+      {props.data
+        .filter((i) =>
+          i.options.some((i) => {
+            return i.id === props.optionID;
+          })
+        )
+        .map((o) => {
+          return (
+            <ProductOption
+              key={o.id}
+              content={o.title}
+              isSelected={props.selectedID === o.id}
+              onPress={() => props.handleSelect(o.id)}
+            />
+          );
+        })}
     </HStack>
   );
 };

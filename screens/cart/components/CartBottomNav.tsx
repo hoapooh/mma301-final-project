@@ -1,15 +1,20 @@
-import { View, Text } from 'react-native';
-import React from 'react';
 import { Box } from '@/components/ui/box';
-import { HStack } from '@/components/ui/hstack';
 import { Button, ButtonSpinner, ButtonText } from '@/components/ui/button';
-import { useMutation } from '@tanstack/react-query';
-import { cartApi, IAddCart } from '@/services/cartApi';
+import { HStack } from '@/components/ui/hstack';
+import { VStack } from '@/components/ui/vstack';
+import { ICart } from '@/interfaces/cart-interface';
 import useCart from '@/screens/cart/hooks/useCart';
-import { queryClient } from '@/app/_layout';
+import { cartApi } from '@/services/cartApi';
 import { orderApi } from '@/services/orderApi';
+import { useMutation } from '@tanstack/react-query';
+import React from 'react';
+import { Text } from 'react-native';
 
-const CartBottomNav: React.FC = () => {
+type Props = {
+  cart: ICart | undefined;
+};
+
+const CartBottomNav: React.FC<Props> = ({ cart }) => {
   const { cartID, clearCart } = useCart();
   const mutation = useMutation({
     mutationFn: async () => {
@@ -26,22 +31,32 @@ const CartBottomNav: React.FC = () => {
     },
     onSuccess: async () => {
       await clearCart();
-      console.log('clear cart');
     },
     onError: console.error,
   });
 
+  if (!cart) {
+    return null;
+  }
+
   return (
     <Box className="bg-white absolute bottom-0 w-full left-0 right-0 p-2 h-[90px] justify-center flex">
-      <HStack className="justify-between items-center h-full">
-        <Text>CartBottomNav</Text>
-        <Button onPress={mutation.mutate}>
-          {mutation.isPending ? (
-            <ButtonSpinner />
-          ) : (
-            <ButtonText>Thanh toán</ButtonText>
-          )}
-        </Button>
+      <HStack className="items-center h-full">
+        <VStack className="flex-1 align-center px-2">
+          <Text className="font-normal text-sm text-gray-500 ">
+            Total Checkout
+          </Text>
+          <Text className="text-2xl font-bold">${cart.total}</Text>
+        </VStack>
+        <Box className="flex-1">
+          <Button onPress={mutation.mutate} size="xl">
+            {mutation.isPending ? (
+              <ButtonSpinner />
+            ) : (
+              <ButtonText>Checkout</ButtonText>
+            )}
+          </Button>
+        </Box>
       </HStack>
     </Box>
   );

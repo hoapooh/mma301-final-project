@@ -50,20 +50,28 @@ const ProductDetail = () => {
           <OptionSection
             data={query.data.options}
             selectedID={selectedOption}
-            handleSelect={(id: string) => setSelectedOption(id)}
+            handleSelect={(id: string) => {
+              setSelectedOption(id);
+              setSelectedVariant(
+                query.data.variants.find((v) =>
+                  v.options.some((o) => o.id === id)
+                )?.id ?? query.data.variants[0].id
+              );
+            }}
           />
           <VariantSection
             data={query.data.variants}
+            optionID={selectedOption}
             selectedID={selectedVariant}
             handleSelect={(id: string) => setSelectedVariant(id)}
           />
         </VStack>
       </Box>
       <DetailBottomNav
-        data={{
-          variant_id: selectedVariant ?? '',
-          quantity: 1,
-        }}
+        variant={
+          query.data.variants.find((i) => i.id === selectedVariant) ??
+          query.data.variants[0]
+        }
       />
     </>
   );

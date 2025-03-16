@@ -1,4 +1,3 @@
-import useAppStore from '@/configs/store';
 import { cartApi } from '@/services/cartApi';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -58,8 +57,6 @@ const useCart = () => {
     };
     run();
   }, [mutation.isPending]);
-
-  console.log(cartID);
 
   return {
     cartID,
