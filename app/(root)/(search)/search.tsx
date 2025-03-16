@@ -13,50 +13,69 @@ import {
   SelectDragIndicator,
   SelectDragIndicatorWrapper,
   SelectItem,
-} from "@/components/ui/select"
-import { ChevronDownIcon } from "@/components/ui/icon"
+} from '@/components/ui/select';
+import { ChevronDownIcon } from '@/components/ui/icon';
 const sortOptions = [
-  { key: "high-low", label: "Price: High-Low" },
-  { key: "low-high", label: "Price: Low-High" },
-  { key: "a-z", label: "Name: A-Z" },
-  { key: "z-a", label: "Name: Z-A" },
+  { key: 'high-low', label: 'Price: High-Low' },
+  { key: 'low-high', label: 'Price: Low-High' },
+  { key: 'a-z', label: 'Name: A-Z' },
+  { key: 'z-a', label: 'Name: Z-A' },
 ];
-const SortSelection = (props:any)=>{
+const SortSelection = (props: any) => {
   return (
-    <View style={{ width: "100%", padding: 10, display: 'flex', flexDirection:'row'}}>
-    <Text style={{ width:"50%", justifyContent: 'flex-start', opacity: 0.5, textAlignVertical:'center'}}>Total product(s): {props.data?.length || 0}</Text>
-    <Select style={{ width:"50%", justifyContent: 'flex-end' }}>
-      <SelectTrigger variant="outline" size="md" className="w-full h-50" >
-        <SelectInput placeholder="Sort option"/>
-        <SelectIcon className="mr-3" as={ChevronDownIcon} />
-      </SelectTrigger>
-      <SelectPortal>
-        <SelectBackdrop />
-        <SelectContent>
-          <SelectDragIndicatorWrapper>
-            <SelectDragIndicator />
-          </SelectDragIndicatorWrapper>
-          {sortOptions.map((option) => (
-              <SelectItem key={option.key} label={option.label} value={option.key} />
+    <View
+      style={{
+        width: '100%',
+        padding: 10,
+        display: 'flex',
+        flexDirection: 'row',
+      }}
+    >
+      <Text
+        style={{
+          width: '50%',
+          justifyContent: 'flex-start',
+          opacity: 0.5,
+          textAlignVertical: 'center',
+        }}
+      >
+        Total product(s): {props.data?.length || 0}
+      </Text>
+      <Select style={{ width: '50%', justifyContent: 'flex-end' }}>
+        <SelectTrigger variant="outline" size="md" className="w-full h-50">
+          <SelectInput placeholder="Sort option" />
+          <SelectIcon className="mr-3" as={ChevronDownIcon} />
+        </SelectTrigger>
+        <SelectPortal>
+          <SelectBackdrop />
+          <SelectContent>
+            <SelectDragIndicatorWrapper>
+              <SelectDragIndicator />
+            </SelectDragIndicatorWrapper>
+            {sortOptions.map((option) => (
+              <SelectItem
+                key={option.key}
+                label={option.label}
+                value={option.key}
+              />
             ))}
-        </SelectContent>
-      </SelectPortal>
-    </Select>
+          </SelectContent>
+        </SelectPortal>
+      </Select>
     </View>
-   
-  )
-}
+  );
+};
 const SearchResult = () => {
   const params = useLocalSearchParams();
   const q = Array.isArray(params.q) ? params.q[0] : params.q || '';
-  const query = useProductList({ apiParams: { q } });
+  const query = useProductList({ apiParams: { q , order: "" } });
   if (query.isLoading) {
     return <Text>Loading...</Text>;
   }
 
   return (
     <View style={{ flex: 1 }}>
-      <SortSelection data={query.data?.products}/>
+      <SortSelection data={query.data?.products} />
       <ProductList data={query.data?.products} />
     </View>
   );
