@@ -27,7 +27,7 @@ const SearchHeader: React.FC = () => {
               onChangeText={(text) => setVal(text)}
               returnKeyType="search"
               onSubmitEditing={() => {
-                router.navigate(`/search-result?q=${val}`);
+                router.navigate(`/search?q=${val}`);
               }}
             />
           </Input>

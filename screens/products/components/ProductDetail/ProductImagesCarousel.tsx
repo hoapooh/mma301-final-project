@@ -1,10 +1,10 @@
-import { ProductImage } from '@/interfaces/product-interface';
+import { IProductImage } from '@/interfaces/product-interface';
 import * as React from 'react';
 import { Image, Text, View } from 'react-native';
 import { useSharedValue } from 'react-native-reanimated';
 import Carousel from 'react-native-reanimated-carousel';
 
-const Index: React.FC<{ data: ProductImage[] | [] | undefined }> = (props) => {
+const Index: React.FC<{ data: IProductImage[] | [] | undefined }> = (props) => {
   const scrollOffsetValue = useSharedValue<number>(0);
   if (!props.data || props.data.length === 0) {
     return (
