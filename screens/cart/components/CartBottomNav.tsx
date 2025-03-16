@@ -1,6 +1,7 @@
 import { Box } from '@/components/ui/box';
 import { Button, ButtonSpinner, ButtonText } from '@/components/ui/button';
 import { HStack } from '@/components/ui/hstack';
+import { Toast, ToastDescription, useToast } from '@/components/ui/toast';
 import { VStack } from '@/components/ui/vstack';
 import { ICart } from '@/interfaces/cart-interface';
 import useCart from '@/screens/cart/hooks/useCart';
@@ -16,6 +17,7 @@ type Props = {
 
 const CartBottomNav: React.FC<Props> = ({ cart }) => {
   const { cartID, clearCart } = useCart();
+  const toast = useToast();
   const mutation = useMutation({
     mutationFn: async () => {
       try {
@@ -29,10 +31,25 @@ const CartBottomNav: React.FC<Props> = ({ cart }) => {
         console.log('place order:', error);
       }
     },
+
     onSuccess: async () => {
       await clearCart();
     },
-    onError: console.error,
+    onError: () => {
+      toast.show({
+        id: String(Math.random()),
+        placement: 'top',
+        duration: 2000,
+        render: ({ id }) => {
+          const uniqueToastId = 'toast-' + id;
+          return (
+            <Toast nativeID={uniqueToastId} action="error" variant="solid">
+              <ToastDescription>Failed to add to cart</ToastDescription>
+            </Toast>
+          );
+        },
+      });
+    },
   });
 
   if (!cart) {
@@ -49,7 +66,7 @@ const CartBottomNav: React.FC<Props> = ({ cart }) => {
           <Text className="text-2xl font-bold">${cart.total}</Text>
         </VStack>
         <Box className="flex-1">
-          <Button onPress={mutation.mutate} size="xl">
+          <Button onPress={() => mutation.mutate()} size="xl">
             {mutation.isPending ? (
               <ButtonSpinner />
             ) : (

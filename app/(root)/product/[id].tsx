@@ -66,6 +66,16 @@ const ProductDetail = () => {
             handleSelect={(id: string) => setSelectedVariant(id)}
           />
         </VStack>
+
+        <VStack className="p-2 " space="md">
+          <Text className="font-bold text-black text-2xl">Description</Text>
+          <Text className="text-lg text-black">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae
+            at voluptatem quam, facilis qui autem quia temporibus molestias,
+            accusamus voluptas iste. Omnis voluptate saepe, veritatis
+            repellendus excepturi assumenda dolorum fugiat!
+          </Text>
+        </VStack>
       </Box>
       <DetailBottomNav
         variant={

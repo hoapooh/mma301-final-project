@@ -6,6 +6,7 @@ export interface ProductApiParams {
   fields?: string;
   regionID?: string | null;
   q?: string | null;
+  order?: string | null;
 }
 
 export const productApi = {
@@ -27,6 +28,7 @@ export const productApi = {
         fields: params.fields || '',
         region_id: params.regionID || '',
         ...(params.q ? { q: params.q } : {}),
+        ...(params.order ? { order: params.order } : {}),
       },
     });
   },
