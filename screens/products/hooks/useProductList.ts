@@ -9,7 +9,7 @@ interface Props {
 const useProductList = (params?: Props) => {
   const regionID = useAppStore((state) => state.regionID);
   const query = useQuery({
-    queryKey: ['productList', params?.apiParams?.q],
+    queryKey: ['productList', params?.apiParams?.q, params?.apiParams?.order],
     queryFn: () => productApi.getProducts({ ...params?.apiParams, regionID, fields: "*variants.calculated_price,+variants.inventory_quantity," + (params?.apiParams?.fields ?? "") }),
     select: (res) => res.data,
   });
