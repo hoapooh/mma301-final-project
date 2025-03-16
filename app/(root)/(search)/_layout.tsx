@@ -17,14 +17,6 @@ const SearchLayout = () => {
           headerRight: () => <SearchHeader />,
         }}
       />
-      <Stack.Screen
-        name="search-result"
-        options={{
-          headerShown: true,
-          headerTitle: '',
-          headerRight: () => <SearchHeader />,
-        }}
-      />
     </Stack>
   );
 };
