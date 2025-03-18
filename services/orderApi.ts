@@ -60,6 +60,4 @@ export const orderApi = {
       params: { cart_id },
     });
   },
-
-
 };
