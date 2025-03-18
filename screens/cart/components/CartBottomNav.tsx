@@ -44,7 +44,7 @@ const CartBottomNav: React.FC<Props> = ({ cart }) => {
           const uniqueToastId = 'toast-' + id;
           return (
             <Toast nativeID={uniqueToastId} action="error" variant="solid">
-              <ToastDescription>Failed to add to cart</ToastDescription>
+              <ToastDescription>Failed</ToastDescription>
             </Toast>
           );
         },
