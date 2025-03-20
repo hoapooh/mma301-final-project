@@ -133,7 +133,7 @@ const OrdersScreen = () => {
                                                 </Text>
                                             </HStack>
                                         ))}
-                                        <View className="flex-row border-gray-300 border-t justify-between p-2 w-full">
+                                        <View className="flex-row border-gray-300 border-t justify-between p-2 w-full mt-2">
                                             <Text className='text-black font-semibold'>Total</Text>
                                             <Text className="text-black font-medium">${order.total.toFixed(2)}</Text>
                                         </View>
