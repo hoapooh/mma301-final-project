@@ -15,6 +15,6 @@ export const profileOptions = [
   {
     icon: <Ionicons name="receipt" size={28} color="black" />,
     title: 'My Orders',
-    onPress: () => {},
+    onPress: () => router.push('/(root)/(tabs)/(profile)/orders'),
   },
 ];
