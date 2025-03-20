@@ -6,7 +6,7 @@ export interface IOrderList {
 }
 
 export interface IOrder {
-  id: number;
+  id: string;
   region_id: string;
   customer_id: string;
   email: string;
@@ -20,12 +20,12 @@ export interface IOrder {
 }
 
 export interface IOrderItem {
-  id: number;
+  id: string;
   title: string;
-  subtitle: string;
+  subtitle?: string;
   thumbnail: string;
   product_id: string;
-  product_title: string;
+  product_title?: string;
   product_type: string;
   quantity: number;
   total: number;
