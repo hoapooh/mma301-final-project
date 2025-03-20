@@ -9,6 +9,10 @@ export interface IUser {
     addresses: IAddress[];
     createdAt?: Date;
     updatedAt?: Date;
+    avatar?: string;
+    has_account?: boolean;
+    created_at?: Date;
+    groups?: string[];
   };
 }
 

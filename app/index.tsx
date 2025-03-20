@@ -33,5 +33,5 @@ export default function Index() {
     return <ScreenLoader />;
   }
 
-  return <Redirect href={'/products'} />;
+  return <Redirect href={'/sign-in'} />;
 }
