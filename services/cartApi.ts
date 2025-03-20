@@ -1,6 +1,6 @@
 import axiosInstance from '@/configs/axiosInstance';
 import { ICart } from '@/interfaces/cart-interface';
-import { AxiosError, AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 
 export interface IAddCart {
   variant_id: string;
@@ -44,12 +44,15 @@ export const cartApi = {
     );
   },
 
-  completeCart: async (cartID: string): Promise<void> => {
-    try {
-      await axiosInstance.post(`/store/carts/${cartID}/complete`);
-    } catch (error) {
-      console.log(error);
-    }
+  completeCart: async (
+    cartID: string
+  ): Promise<{
+    type: string;
+    order: {
+      id: string;
+    };
+  }> => {
+    return await axiosInstance.post(`/store/carts/${cartID}/complete`);
   },
 
   setShippingMethod: async (

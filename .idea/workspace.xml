@@ -6,10 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="31517d54-6d47-48db-8001-6634abf096ec" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(root)/(cart)/cart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(root)/(cart)/cart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/screens/cart/components/CartBottomNav.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/cart/components/CartBottomNav.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/cart/hooks/useCart.ts" beforeDir="false" afterPath="$PROJECT_DIR$/screens/cart/hooks/useCart.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/cartApi.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/cartApi.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

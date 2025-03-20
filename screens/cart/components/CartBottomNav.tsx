@@ -8,6 +8,7 @@ import useCart from '@/screens/cart/hooks/useCart';
 import { cartApi } from '@/services/cartApi';
 import { orderApi } from '@/services/orderApi';
 import { useMutation } from '@tanstack/react-query';
+import { useRouter } from 'expo-router';
 import React from 'react';
 import { Text } from 'react-native';
 
@@ -16,39 +17,17 @@ type Props = {
 };
 
 const CartBottomNav: React.FC<Props> = ({ cart }) => {
+  const router = useRouter();
   const { cartID, clearCart } = useCart();
   const toast = useToast();
   const mutation = useMutation({
     mutationFn: async () => {
-      try {
-        const so = await orderApi.getShippingMethods(cartID ?? '');
-        const shippingMethodID = so.data.shipping_options[0].id;
-        await cartApi.setShippingMethod(cartID ?? '', shippingMethodID);
-        const res = await orderApi.createPaymentCollection(cartID ?? '');
-        await orderApi.initPaymentSession(res.data.payment_collection.id);
-        await cartApi.completeCart(cartID ?? '');
-      } catch (error) {
-        console.log('place order:', error);
-      }
-    },
-
-    onSuccess: async () => {
-      await clearCart();
-    },
-    onError: () => {
-      toast.show({
-        id: String(Math.random()),
-        placement: 'top',
-        duration: 2000,
-        render: ({ id }) => {
-          const uniqueToastId = 'toast-' + id;
-          return (
-            <Toast nativeID={uniqueToastId} action="error" variant="solid">
-              <ToastDescription>Failed</ToastDescription>
-            </Toast>
-          );
-        },
-      });
+      const so = await orderApi.getShippingMethods(cartID ?? '');
+      const shippingMethodID = so.data.shipping_options[0].id;
+      await cartApi.setShippingMethod(cartID ?? '', shippingMethodID);
+      const res = await orderApi.createPaymentCollection(cartID ?? '');
+      await orderApi.initPaymentSession(res.data.payment_collection.id);
+      return await cartApi.completeCart(cartID ?? '');
     },
   });
 
@@ -66,7 +45,36 @@ const CartBottomNav: React.FC<Props> = ({ cart }) => {
           <Text className="text-2xl font-bold">${cart.total}</Text>
         </VStack>
         <Box className="flex-1">
-          <Button onPress={() => mutation.mutate()} size="xl">
+          <Button
+            onPress={async () => {
+              try {
+                const data = await mutation.mutateAsync();
+                console.log(data.order);
+                await clearCart();
+                router.push(`/(profile)/orders`);
+              } catch (error) {
+                console.log(error);
+                toast.show({
+                  id: String(Math.random()),
+                  placement: 'top',
+                  duration: 2000,
+                  render: ({ id }) => {
+                    const uniqueToastId = 'toast-' + id;
+                    return (
+                      <Toast
+                        nativeID={uniqueToastId}
+                        action="error"
+                        variant="solid"
+                      >
+                        <ToastDescription>Failed</ToastDescription>
+                      </Toast>
+                    );
+                  },
+                });
+              }
+            }}
+            size="xl"
+          >
             {mutation.isPending ? (
               <ButtonSpinner />
             ) : (
