@@ -4,7 +4,6 @@ export interface IProductImage {
   rank: number;
 }
 
-
 export interface IProductVariantOption {
   id: string;
   value: string;
@@ -18,7 +17,6 @@ export interface IProductVariant {
   title: string;
   id: string;
   options: IProductVariantOption[];
-
 }
 
 export interface IProductOption {
@@ -26,10 +24,9 @@ export interface IProductOption {
   title: string;
   values: {
     id: string;
-    value: string
-  }[]
+    value: string;
+  }[];
 }
-
 
 export interface IProduct {
   id: string;
@@ -42,4 +39,5 @@ export interface IProduct {
   subtitle: string;
   options: IProductOption[];
   variants: IProductVariant[];
+  description: string;
 }

@@ -2,6 +2,7 @@ import ScreenLoader from '@/components/Loader/ScreenLoader';
 import useAppStore from '@/configs/store';
 import useCart from '@/screens/cart/hooks/useCart';
 import { regionApi } from '@/services/regionApi';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useQuery } from '@tanstack/react-query';
 import { Redirect } from 'expo-router';
 import { useEffect } from 'react';

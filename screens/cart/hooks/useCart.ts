@@ -1,3 +1,4 @@
+import { queryClient } from '@/app/_layout';
 import { cartApi } from '@/services/cartApi';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -25,10 +26,21 @@ const useCart = () => {
   });
 
   const query = useQuery({
-    queryKey: ['cart', cartID],
+    queryKey: ['cart'],
     queryFn: () => cartApi.getCart(cartID),
     enabled: !!cartID,
     select: (res) => res.data,
+  });
+
+  const deleteItemMutaion = useMutation({
+    mutationFn: (itemID: string) => {
+      return cartApi.removeLineItem(cartID ?? '', itemID);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['cart'],
+      });
+    },
   });
 
   useEffect(() => {
@@ -62,6 +74,7 @@ const useCart = () => {
     cartID,
     query,
     clearCart,
+    deleteItemMutaion,
   };
 };
 

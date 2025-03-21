@@ -41,7 +41,7 @@ const DetailBottomNav: React.FC<Props> = (props) => {
         },
       });
       queryClient.invalidateQueries({
-        queryKey: ['cart', cartID],
+        queryKey: ['cart'],
       });
     },
     onError: () => {

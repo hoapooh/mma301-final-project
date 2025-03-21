@@ -6,10 +6,10 @@ import CartBottomNav from '@/screens/cart/components/CartBottomNav';
 import useCart from '@/screens/cart/hooks/useCart';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 
 const Cart = () => {
-  const { query } = useCart();
+  const { query, deleteItemMutaion } = useCart();
 
   if (query.isLoading) {
     return <Text>Loading...</Text>;
@@ -39,7 +39,11 @@ const Cart = () => {
               <Text className="font-semibold text-xl">${item.unit_price}</Text>
             </VStack>
             <Box className=" flex justify-end flex-row ">
-              <Ionicons name="trash-outline" size={20} color="red" />
+              <TouchableOpacity
+                onPress={() => deleteItemMutaion.mutate(item.id)}
+              >
+                <Ionicons name="trash-outline" size={20} color="red" />
+              </TouchableOpacity>
             </Box>
           </HStack>
         ))}

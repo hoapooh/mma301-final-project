@@ -13,6 +13,8 @@ const Index: React.FC<{ data: IProductImage[] | [] | undefined }> = (props) => {
       </View>
     );
   }
+
+  console.log(props.data.length);
   return (
     <View id="carousel-component">
       <Carousel
